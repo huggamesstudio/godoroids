@@ -89,7 +89,6 @@ func _input(event):
 	if event.is_action_released("game_accel"):
 		self.get_tree().set_input_as_handled()
 		self.accelerating = false
-<<<<<<< HEAD
 	
 	if event.is_action_pressed("game_shoot"):
 		self.get_tree().set_input_as_handled()
@@ -97,5 +96,3 @@ func _input(event):
 	if event.is_action_released("game_shoot"):
 		self.get_tree().set_input_as_handled()
 		self.shooting = false
-=======
->>>>>>> d8964363816e7a099ce54c01bfec8c7597d424d0
