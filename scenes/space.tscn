@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
 [ext_resource path="res://images/stars1.png" type="Texture" id=2]
 [ext_resource path="res://images/stars2.png" type="Texture" id=3]
+[ext_resource path="res://scenes/entities/asteroid.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/entities/ship.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 
@@ -54,9 +56,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
+margin/top = -2.0
 margin/right = 3000.0
-margin/bottom = 1500.0
+margin/bottom = 1498.0
 texture = ExtResource( 3 )
 stretch_mode = 3
 
@@ -78,5 +80,13 @@ drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
+
+[node name="Asteroid" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 780.961, 92.5309 )
+
+[node name="Ship" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 22.2074, 495.966 )
 
 

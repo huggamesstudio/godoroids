@@ -3,10 +3,10 @@
 [ext_resource path="res://scenes/entities/ship.gd" type="Script" id=1]
 [ext_resource path="res://images/ship.png" type="Texture" id=2]
 
-[sub_resource type="ConcavePolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-segments = Vector2Array( 1.59117, 0.0821782, -1.50396, -1.28203, -1.50396, -1.28203, -1.49362, 1.58613, -1.49362, 1.58613, 1.59117, 0.0821782 )
+points = Vector2Array( -1.49362, 1.58613, -1.50396, -1.28203, 1.59117, 0.0821782 )
 
 [node name="Ship" type="KinematicBody2D"]
 
@@ -27,7 +27,7 @@ texture = ExtResource( 2 )
 
 transform/pos = Vector2( -0.107068, -1.80268 )
 transform/scale = Vector2( 16.9613, 17.5529 )
-build_mode = 1
+build_mode = 0
 polygon = Vector2Array( 1.59117, 0.0821782, -1.50396, -1.28203, -1.49362, 1.58613 )
 shape_range = Vector2( 0, 0 )
 trigger = false
