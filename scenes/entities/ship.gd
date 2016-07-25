@@ -22,10 +22,6 @@ func _ready():
 	self.set_process(true)
 	self.set_process_input(true)
 
-	var current_position = self.get_pos()
-	current_position[0] = 100
-	current_position[1] = 100
-	self.set_pos(current_position)
 
 func _process(delta):
 

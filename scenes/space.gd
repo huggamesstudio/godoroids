@@ -1,7 +1,5 @@
 extends Node2D
 
-var ship = null
-
 func _ready():
 	# State async configuration
 	self.set_process(true)
@@ -18,16 +16,12 @@ func _ready():
 	current_camera_parent.remove_child(camera)
 	ship_instance.add_child(camera)
 
-	# Resize parallax background layers
-	var viewport_rect = self.get_viewport().get_rect()
-	var parallax_layer = self.get_node("ParallaxBackground/ParallaxLayer")
-	var parallax_layer_alt = self.get_node("ParallaxBackground/ParallaxLayer")
-	parallax_layer.set_mirroring(Vector2(viewport_rect.size.width, viewport_rect.size.height))
-
 func _process(delta):
 	pass
 
 func _input(event):
+
+	# ESC - Exits the application
 	if event.is_action("ui_cancel"):
 		self.get_tree().set_input_as_handled()
 		self.get_tree().quit()
