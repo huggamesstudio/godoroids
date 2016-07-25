@@ -1,5 +1,8 @@
 extends Node2D
 
+var LIFE_MAX = 100
+var life
+
 const SPD_SCALE_FACTOR = 1
 const ROT_SCALE_FACTOR = 5
 
@@ -12,7 +15,7 @@ const ROT_MAX = 1 * ROT_SCALE_FACTOR
 const ROT_FRICTION = 0.05 * ROT_SCALE_FACTOR
 var rotation_speed = 0
 
-var RELOAD_TIME = 0.1
+var RELOAD_TIME = 0.2
 var reload_countdown = 0
 
 var turning_left = false
@@ -20,10 +23,11 @@ var turning_right = false
 var accelerating = false
 var shooting = false
 
-
 func _ready():
 	self.set_process(true)
 	self.set_process_input(true)
+	add_to_group("ships")
+	self.life = self.LIFE_MAX
 
 func _process(delta):
 
@@ -60,10 +64,14 @@ func _process(delta):
 		self.reload_countdown = self.RELOAD_TIME
 		var laser = load("res://scenes/entities/laser.tscn").instance()
 		laser.set_rot(self.get_rot())
-		laser.set_pos(self.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*50)
+		laser.set_pos(self.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
 		self.get_parent().add_child(laser)
+		laser.increase_speed(self.speed)
 	if reload_countdown > 0:
 		self.reload_countdown -= delta
+	
+	if self.is_colliding():
+		self.speed = Vector2(0,0)
 	
 	self.move(self.speed)
 
@@ -96,3 +104,11 @@ func _input(event):
 	if event.is_action_released("game_shoot"):
 		self.get_tree().set_input_as_handled()
 		self.shooting = false
+		
+func hurt(damage):
+	self.life -= damage
+	if self.life <= 0:
+		self.die();
+		
+func die():
+	self.queue_free()
