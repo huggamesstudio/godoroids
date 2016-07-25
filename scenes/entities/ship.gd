@@ -4,9 +4,9 @@ extends Node2D
 const SPD_SCALE_FACTOR = 1
 const ROT_SCALE_FACTOR = 5
 
-const SPD_ACCEL = 0.5 * SPD_SCALE_FACTOR
+const SPD_ACCEL = 0.05 * SPD_SCALE_FACTOR
 const SPD_MAX = 15 * SPD_SCALE_FACTOR
-var speed = 0
+var speed = Vector2(0, 0)
 
 const ROT_ACCEL = 0.2 * ROT_SCALE_FACTOR
 const ROT_MAX = 1 * ROT_SCALE_FACTOR
@@ -34,14 +34,12 @@ func _process(delta):
 	if self.turning_right:
 		self.rotation_speed -= ROT_ACCEL
 	if self.accelerating:
-		self.speed += SPD_ACCEL
+		self.speed.x += cos(self.get_rot())*SPD_ACCEL
+		self.speed.y += -sin(self.get_rot())*SPD_ACCEL
 
-	if abs(self.speed)>SPD_MAX:
-		if self.speed > 0:
-			self.speed = SPD_MAX
-		else:
-			self.speed = -SPD_MAX
-
+	if self.speed.length()>SPD_MAX:
+		self.speed = self.speed.normalized()*SPD_MAX
+		
 	if abs(self.rotation_speed)>ROT_MAX:
 		if self.rotation_speed > 0:
 			self.rotation_speed = ROT_MAX
@@ -60,11 +58,7 @@ func _process(delta):
 	current_rotation += self.rotation_speed
 	self.set_rotd(current_rotation)
 	
-	var current_position = self.get_pos()
-	if self.speed:
-		current_position.x += cos(deg2rad(current_rotation)) * self.speed
-		current_position.y += sin(deg2rad(-current_rotation)) * self.speed
-		self.set_pos(current_position)
+	self.move(self.speed)
 
 
 func _input(event):

@@ -4,7 +4,7 @@
 [ext_resource path="res://images/stars1.png" type="Texture" id=2]
 [ext_resource path="res://images/stars2.png" type="Texture" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D"]
 
 transform/scale = Vector2( 0.5, 0.5 )
 script/script = ExtResource( 1 )
@@ -64,7 +64,7 @@ stretch_mode = 3
 
 anchor_mode = 1
 rotating = false
-current = true
+current = false
 zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000

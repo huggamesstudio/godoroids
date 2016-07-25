@@ -6,13 +6,13 @@
 [sub_resource type="ConcavePolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-segments = Vector2Array( 2.95229e-07, -1.55506, 1.54419, 1.56404, 1.54419, 1.56404, -1.53488, 1.56404, -1.53488, 1.56404, 2.95229e-07, -1.55506 )
+segments = Vector2Array( 1.59117, 0.0821782, -1.50396, -1.28203, -1.50396, -1.28203, -1.49362, 1.58613, -1.49362, 1.58613, 1.59117, 0.0821782 )
 
 [node name="Ship" type="KinematicBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 16.9613, 0, 0, 17.5529, -0.107068, -1.32703 )
+shapes/0/transform = Matrix32( 16.9613, 0, 0, 17.5529, -0.107068, -1.80268 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -25,10 +25,10 @@ texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
-transform/pos = Vector2( -0.107068, -1.32703 )
+transform/pos = Vector2( -0.107068, -1.80268 )
 transform/scale = Vector2( 16.9613, 17.5529 )
 build_mode = 1
-polygon = Vector2Array( 2.95229e-07, -1.55506, 1.54419, 1.56404, -1.53488, 1.56404 )
+polygon = Vector2Array( 1.59117, 0.0821782, -1.50396, -1.28203, -1.49362, 1.58613 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
