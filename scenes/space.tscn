@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
-[ext_resource path="res://images/stars1.png" type="Texture" id=2]
-[ext_resource path="res://images/stars2.png" type="Texture" id=3]
 [ext_resource path="res://scenes/entities/asteroid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/entities/ship.tscn" type="PackedScene" id=5]
+[ext_resource path="res://images/bg-far.png" type="Texture" id=2]
+[ext_resource path="res://images/bg-close.png" type="Texture" id=3]
 
 [node name="Game" type="Node2D"]
 
@@ -22,15 +22,15 @@ scroll/base_offset = Vector2( 0, 0 )
 scroll/base_scale = Vector2( 1, 1 )
 scroll/limit_begin = Vector2( 0, 0 )
 scroll/limit_end = Vector2( 0, 0 )
-scroll/ignore_camera_zoom = false
+scroll/ignore_camera_zoom = true
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayerNebula" type="ParallaxLayer" parent="ParallaxBackground"]
 
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1, 1 )
+motion/mirroring = Vector2( 1920, 1080 )
 
-[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/ParallaxLayer"]
+[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/ParallaxLayerNebula"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -38,29 +38,35 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 3000.0
-margin/bottom = 1500.0
+margin/right = 40.0
+margin/bottom = 40.0
 texture = ExtResource( 2 )
-stretch_mode = 3
+stretch_mode = 0
 
-[node name="ParallaxLayerAlt" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayerStars" type="ParallaxLayer" parent="ParallaxBackground"]
 
 motion/scale = Vector2( 1.3, 1.3 )
 motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1, 1 )
+motion/mirroring = Vector2( 1920, 1080 )
 
-[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/ParallaxLayerAlt"]
+[node name="TextureFrame" type="TextureFrame" parent="ParallaxBackground/ParallaxLayerStars"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
+<<<<<<< HEAD
 margin/top = -2.0
 margin/right = 3000.0
 margin/bottom = 1498.0
+=======
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+>>>>>>> d8964363816e7a099ce54c01bfec8c7597d424d0
 texture = ExtResource( 3 )
-stretch_mode = 3
+stretch_mode = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
