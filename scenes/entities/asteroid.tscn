@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://images/asteroid.png" type="Texture" id=1]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ConcavePolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+segments = Vector2Array( 9.37511, -60.8811, -40.1255, -42.7633, -40.1255, -42.7633, -59.214, 11.5904, -59.214, 11.5904, -35.2725, 23.8847, -35.2725, 23.8847, -29.7725, 36.826, -29.7725, 36.826, -5.83098, 34.5613, -5.83098, 34.5613, 27.1695, 55.2674, 27.1695, 55.2674, 41.7285, 35.2083, 41.7285, 35.2083, 44.9638, -10.7334, 44.9638, -10.7334, 35.1492, -44.7763, 35.1492, -44.7763, 9.37511, -60.8811 )
+
+[node name="Asteroid" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1.29411, 0.32354 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -13,7 +26,7 @@ texture = ExtResource( 1 )
 transform/pos = Vector2( 1.29411, 0.32354 )
 build_mode = 1
 polygon = Vector2Array( 9.37511, -60.8811, -40.1255, -42.7633, -59.214, 11.5904, -35.2725, 23.8847, -29.7725, 36.826, -5.83098, 34.5613, 27.1695, 55.2674, 41.7285, 35.2083, 44.9638, -10.7334, 35.1492, -44.7763 )
-shape_range = Vector2( -1, -1 )
+shape_range = Vector2( 0, 0 )
 trigger = false
 
 
