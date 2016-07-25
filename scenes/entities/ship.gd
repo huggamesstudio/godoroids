@@ -22,10 +22,6 @@ func _ready():
 	self.set_process(true)
 	self.set_process_input(true)
 
-	var current_position = self.get_pos()
-	current_position[0] = 100
-	current_position[1] = 100
-	self.set_pos(current_position)
 
 func _process(delta):
 
@@ -59,7 +55,7 @@ func _process(delta):
 	var current_rotation = self.get_rotd()
 	current_rotation += self.rotation_speed
 	self.set_rotd(current_rotation)
-	
+
 	var current_position = self.get_pos()
 	if self.speed:
 		current_position.x += cos(deg2rad(current_rotation)) * self.speed
