@@ -16,6 +16,6 @@ func _fixed_process(delta):
 	if self.LIFE_TICKS < 1:
 		self.queue_free()
 	
-func increase_speed(extra_speed):
+func change_speed(extra_speed):
 	self.vector_speed += extra_speed
 

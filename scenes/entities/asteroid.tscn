@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://scenes/entities/asteroid.gd" type="Script" id=1]
 [ext_resource path="res://images/asteroid.png" type="Texture" id=2]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -46,5 +47,7 @@ build_mode = 0
 polygon = Vector2Array( 9.37511, -60.8811, -40.1255, -42.7633, -59.214, 11.5904, -35.2725, 23.8847, -29.7725, 36.826, -5.83098, 34.5613, 27.1695, 55.2674, 41.7285, 35.2083, 44.9638, -10.7334, 35.1492, -44.7763 )
 shape_range = Vector2( 0, 2 )
 trigger = false
+
+[node name="GravityWell" parent="." instance=ExtResource( 3 )]
 
 

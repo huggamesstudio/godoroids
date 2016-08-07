@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scenes/modules/gravity_well.gd" type="Script" id=1]
+
+[node name="GravityWell" type="Node2D"]
+
+script/script = ExtResource( 1 )
+mass = 1.0
+gravity_atracted = true
+
+

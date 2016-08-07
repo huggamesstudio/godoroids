@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/entities/ship.gd" type="Script" id=1]
-[ext_resource path="res://scenes/entities/ghosts.gd" type="Script" id=2]
-[ext_resource path="res://images/ship.png" type="Texture" id=3]
+[ext_resource path="res://images/ship.png" type="Texture" id=2]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -19,18 +19,18 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+life = 100
+speed = Vector2( 0, 0 )
+rotation_speed = 0
+reload_countdown = 0
 
-[node name="Graphics" type="Node2D" parent="."]
-
-script/script = ExtResource( 2 )
-
-[node name="ModelSprite" type="Sprite" parent="Graphics"]
+[node name="Sprite" type="Sprite" parent="."]
 
 visibility/behind_parent = true
 z/relative = false
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionShape" type="CollisionPolygon2D" parent="."]
 
 transform/pos = Vector2( -0.107068, -1.80268 )
 transform/scale = Vector2( 16.9613, 17.5529 )
@@ -38,5 +38,7 @@ build_mode = 0
 polygon = Vector2Array( 1.59117, 0.0821782, -1.50396, -1.28203, -1.49362, 1.58613 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="GravityWell" parent="." instance=ExtResource( 3 )]
 
 

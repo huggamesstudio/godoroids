@@ -2,8 +2,9 @@ extends Node2D
 
 func _ready():
 	# State async configuration
-	self.set_process(true)
+	self.set_fixed_process(true)
 	self.set_process_input(true)
+	Globals.set("GROUND_SIZE", Vector2(3840,2160))
 
 	# Load and instance the player ship
 	var ship_scene = load("res://scenes/entities/ship.tscn")
@@ -16,7 +17,7 @@ func _ready():
 	current_camera_parent.remove_child(camera)
 	ship_instance.add_child(camera)
 
-func _process(delta):
+func _fixed_process(delta):
 	pass
 
 func _input(event):
