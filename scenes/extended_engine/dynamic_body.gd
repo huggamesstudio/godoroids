@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
-# Own propulsion characteristics
+# This script extends a KinematicBody2D to implement speed and acceleration.
+# It converts it into a "DynamicBody2D".
+
 export var LINEAR_ACCEL = 1.5
 export var SPD_MAX = 30.0
 
@@ -15,7 +17,6 @@ export var reload_countdown = 0
 var turning_left = false
 var turning_right = false
 var accelerating = false
-var shooting = false
 
 func _ready():
 	self.set_fixed_process(true)

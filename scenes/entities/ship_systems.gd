@@ -1,6 +1,9 @@
 
 extends Node
 
+# This node is intended to take care of everything related to the ships except
+# movement: shooting, shields/life, ..
+
 const LIFE_MAX = 100
 export var life = 100
 

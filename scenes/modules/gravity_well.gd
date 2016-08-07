@@ -1,6 +1,11 @@
 
 extends Node
 
+# When this node is attached as child to a DynamicBody2D (KineticBody2D+dynamic_body.gd)
+# it enables gravity for the parent. The parent will now pull other gravity wells 
+# (depending on the mass) and will be pull by others (unless gravity_atracted is set to false)
+#
+
 const k = 50000.0
 export var mass = 1.0
 export var gravity_atracted = true
