@@ -10,6 +10,10 @@ func _ready():
 	var ship_scene = load("res://scenes/entities/ship.tscn")
 	var ship_instance = ship_scene.instance()
 	self.add_child(ship_instance)
+	
+	# Load player 1 behavior (input) into the ship
+	var player1_int = load("res://scenes/modules/player1_intelligence.tscn").instance()
+	ship_instance.add_child(player1_int)
 
 	# Assign the scene camera to the player ship
 	var camera = self.get_node("Camera2D")

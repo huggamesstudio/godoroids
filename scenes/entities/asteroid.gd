@@ -1,10 +1,11 @@
 
-extends KinematicBody2D
+extends Node
 
 func _ready():
-	add_to_group("asteroids")
+	var asteroid = self.get_parent()
+	asteroid.add_to_group("asteroids")
 	
-	var sprite = self.get_node("Sprite")
+	var sprite = asteroid.get_node("Sprite")
 	var color = Color(randf(), randf(), randf())
 	sprite.set_modulate(color)
 

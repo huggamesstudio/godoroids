@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scenes/modules/player1_intelligence.gd" type="Script" id=1]
+
+[node name="Player1Input" type="Node"]
+
+script/script = ExtResource( 1 )
+
+

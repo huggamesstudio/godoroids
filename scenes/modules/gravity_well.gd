@@ -1,3 +1,6 @@
+
+extends Node
+
 const k = 50000.0
 export var mass = 1.0
 export var gravity_atracted = true

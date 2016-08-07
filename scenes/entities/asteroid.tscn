@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://scenes/entities/asteroid.gd" type="Script" id=1]
+[ext_resource path="res://scenes/extended_engine/dynamic_body.gd" type="Script" id=1]
 [ext_resource path="res://images/asteroid.png" type="Texture" id=2]
 [ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/entities/asteroid.gd" type="Script" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -35,6 +36,14 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+LINEAR_ACCEL = 1.5
+SPD_MAX = 30.0
+ROT_ACCEL = 22.5
+ROT_SPEED_MAX = 150.0
+ROT_FRICTION = 7.5
+speed = Vector2( 0, 0 )
+rotation_speed = 0
+reload_countdown = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -49,5 +58,9 @@ shape_range = Vector2( 0, 2 )
 trigger = false
 
 [node name="GravityWell" parent="." instance=ExtResource( 3 )]
+
+[node name="Properties" type="Node" parent="."]
+
+script/script = ExtResource( 4 )
 
 
