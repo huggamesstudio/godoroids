@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://scenes/extended_engine/dynamic_body.gd" type="Script" id=1]
+[ext_resource path="res://images/planet.png" type="Texture" id=2]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/entities/planet.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 256.0
+
+[node name="Planet" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1.29411, 0.32354 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+speed = Vector2( 0, 0 )
+rotation_speed = 0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionCircle" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 1.29411, 0.32354 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="GravityWell" parent="." instance=ExtResource( 3 )]
+
+[node name="Properties" type="Node" parent="."]
+
+script/script = ExtResource( 4 )
+radius = 1
+
+
