@@ -20,14 +20,8 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-LINEAR_ACCEL = 1.5
-SPD_MAX = 30.0
-ROT_ACCEL = 22.5
-ROT_SPEED_MAX = 150.0
-ROT_FRICTION = 7.5
 speed = Vector2( 0, 0 )
 rotation_speed = 0
-reload_countdown = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -42,10 +36,11 @@ trigger = false
 
 [node name="GravityWell" parent="." instance=ExtResource( 3 )]
 
+mass = 0.01
+
 [node name="Systems" type="Node" parent="."]
 
 script/script = ExtResource( 4 )
 life = 100
-reload_countdown = 0
 
 

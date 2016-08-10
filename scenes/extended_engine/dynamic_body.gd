@@ -3,16 +3,15 @@ extends KinematicBody2D
 # This script extends a KinematicBody2D to implement speed and acceleration.
 # It converts it into a "DynamicBody2D".
 
-export var LINEAR_ACCEL = 1.5
-export var SPD_MAX = 30.0
+const LINEAR_ACCEL = 1.5
+const SPD_MAX = 30.0
 
-export var ROT_ACCEL = 22.5
-export var ROT_SPEED_MAX = 150.0
-export var ROT_FRICTION = 7.5
+const ROT_ACCEL = 22.5
+const ROT_SPEED_MAX = 150.0
+const ROT_FRICTION = 7.5
 
 export var speed = Vector2(0, 0)
 export var rotation_speed = 0
-export var reload_countdown = 0
 
 var turning_left = false
 var turning_right = false
@@ -28,6 +27,11 @@ func change_speed(speed_delta):
 	self.speed += speed_delta
 	if self.speed.length() > SPD_MAX:
 		self.speed = self.speed.normalized()*SPD_MAX
+
+func speed_impulse(speed_delta_impulse):
+	var rot = self.get_rot()
+	var speed_delta = speed_delta_impulse*Vector2(cos(rot), -sin(rot))
+	self.change_speed(speed_delta)
 	
 func movement(delta):
 	if self.turning_left:

@@ -6,7 +6,9 @@ extends Node
 # (depending on the mass) and will be pull by others (unless gravity_atracted is set to false)
 #
 
-const k = 50000.0
+const K = 5.0
+const EARTH_MASS = 15000.0
+
 export var mass = 1.0
 export var gravity_atracted = true
 
@@ -17,7 +19,7 @@ func _ready():
 	
 func gravity(target_pos):
 	var r = target_pos - self.get_parent().get_pos()
-	var acceleration = -k*mass*r/pow(r.length(),3)
+	var acceleration = -K*EARTH_MASS*mass*r/pow(r.length(),3)
 	return acceleration
 
 func _fixed_process(delta):

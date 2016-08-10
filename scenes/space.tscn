@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
 [ext_resource path="res://images/bg-far.png" type="Texture" id=2]
 [ext_resource path="res://images/bg-close.png" type="Texture" id=3]
 [ext_resource path="res://scenes/entities/asteroid.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 
@@ -54,9 +55,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
+margin/left = 2.0
 margin/top = -2.0
-margin/right = 3000.0
+margin/right = 3002.0
 margin/bottom = 1498.0
 texture = ExtResource( 3 )
 stretch_mode = 0
@@ -82,6 +83,11 @@ drag_margin/bottom = 0.2
 
 [node name="Asteroid" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 780.961, 92.5309 )
+transform/pos = Vector2( 540.381, 292.397 )
+speed = Vector2( 0, 1.2 )
+
+[node name="Planet" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 980.824, 299.799 )
 
 
