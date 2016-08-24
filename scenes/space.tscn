@@ -3,8 +3,8 @@
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
 [ext_resource path="res://images/bg-far.png" type="Texture" id=2]
 [ext_resource path="res://images/bg-close.png" type="Texture" id=3]
-[ext_resource path="res://scenes/entities/asteroid.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/entities/cruiser.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node2D"]
 
@@ -81,13 +81,13 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="Asteroid" parent="." instance=ExtResource( 4 )]
+[node name="Planet" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 540.381, 292.397 )
-speed = Vector2( 0, 1.2 )
+transform/pos = Vector2( 897.35, 475.927 )
 
-[node name="Planet" parent="." instance=ExtResource( 5 )]
+[node name="Cruiser" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 980.824, 299.799 )
+transform/pos = Vector2( 231.191, -396.465 )
 
 
+[editable path="Planet"]

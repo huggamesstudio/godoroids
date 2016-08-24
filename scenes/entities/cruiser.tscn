@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=1]
+
+[ext_resource path="res://scenes/extended_engine/dynamic_body.gd" type="Script" id=1]
+[ext_resource path="res://images/cruiser.png" type="Texture" id=2]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/entities/cruiser.gd" type="Script" id=4]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 17.625, -1.71513, 19.7738, -1.71513, 19.7106, -0.863828, 17.625, -0.863828 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 11.4312, -7.92138, 17.625, -7.92138, 17.625, -6.9877, 15.4129, -6.9877 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 11.368, 5.20512, 11.4312, -7.92138, 15.4129, -6.9877, 15.4129, -3.39027, 15.3497, 0.783851 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 15.4129, -3.39027, 17.625, -3.39027, 17.625, -1.71513 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 17.625, -0.863828, 17.625, 0.783851, 15.3497, 0.783851, 15.4129, -3.39027 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 15.4129, 4.24398, 17.625, 4.24398, 17.625, 5.20512, 11.368, 5.20512 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 15.3497, 0.783851, 15.4129, 4.24398, 11.368, 5.20512 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 17.625, -0.863828, 15.4129, -3.39027, 17.625, -1.71513 )
+
+[node name="Cruiser" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/2/trigger = false
+shapes/3/shape = SubResource( 4 )
+shapes/3/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/3/trigger = false
+shapes/4/shape = SubResource( 5 )
+shapes/4/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/4/trigger = false
+shapes/5/shape = SubResource( 6 )
+shapes/5/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/5/trigger = false
+shapes/6/shape = SubResource( 7 )
+shapes/6/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/6/trigger = false
+shapes/7/shape = SubResource( 8 )
+shapes/7/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
+shapes/7/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+speed = Vector2( 0, 0 )
+rotation_speed = 0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( -92.6943, 21.1041 )
+transform/scale = Vector2( 6.96388, 16.0271 )
+build_mode = 0
+polygon = Vector2Array( 11.4312, -7.92138, 11.368, 5.20512, 17.625, 5.20512, 17.625, 4.24398, 15.4129, 4.24398, 15.3497, 0.783851, 17.625, 0.783851, 17.625, -0.863828, 19.7106, -0.863828, 19.7738, -1.71513, 17.625, -1.71513, 17.625, -3.39027, 15.4129, -3.39027, 15.4129, -6.9877, 17.625, -6.9877, 17.625, -7.92138 )
+shape_range = Vector2( 0, 7 )
+trigger = false
+
+[node name="GravityWell" parent="." instance=ExtResource( 3 )]
+
+mass = 0.001
+
+[node name="FrigateSystems" type="Node" parent="."]
+
+script/script = ExtResource( 4 )
+life = 100
+
+

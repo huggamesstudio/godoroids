@@ -17,4 +17,7 @@ func _ready():
 	
 	planet.get_node("CollisionCircle").get_shape().set_radius(radius*EARTH_RADIUS)
 
+func get_radius():
+	return radius*EARTH_RADIUS
+
 
