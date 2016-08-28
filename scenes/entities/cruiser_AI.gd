@@ -110,7 +110,7 @@ func _look_for_targets():
 			target = ship
 			break
 			
-	var cruiser_systems = cruiser.get_node("CruiserSystems")
+	var cruiser_systems = cruiser.get_node("Systems")
 	if (target):
 		cruiser_systems.shooting_to(target.get_pos())
 	else:

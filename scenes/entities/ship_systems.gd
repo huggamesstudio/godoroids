@@ -34,8 +34,11 @@ func _process(delta):
 	if self.charging_propulsion and self.propulsion_charge < MAX_PROPULSION_CHARGE :
 		propulsion_charge += delta*0.2
 
-func shooting(enable):
-	self.shooting = enable
+func shooting():
+	self.shooting = true
+
+func stop_shooting():
+	self.shooting = false
 
 func hurt(damage):
 	self.life -= damage

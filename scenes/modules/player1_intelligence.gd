@@ -54,11 +54,11 @@ func ship_input(event):
 	if event.is_action_pressed("game_shoot"):
 		self.get_tree().set_input_as_handled()
 		if ship_systems != null:
-			ship_systems.shooting(true)
+			ship_systems.shooting()
 	if event.is_action_released("game_shoot"):
 		self.get_tree().set_input_as_handled()
 		if ship_systems != null:
-			ship_systems.shooting(false)
+			ship_systems.stop_shooting()
 			
 	if event.is_action_pressed("game_propulsion"):
 		self.get_tree().set_input_as_handled()
