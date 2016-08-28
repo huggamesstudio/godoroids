@@ -13,17 +13,17 @@ export var mass = 1.0
 export var gravity_atracted = true
 
 func _ready():
-	self.set_fixed_process(true)
+	set_fixed_process(true)
 	if _is_heavy():
 		add_to_group("heavies")
 	
 func gravity(target_pos):
-	var r = target_pos - self.get_parent().get_pos()
+	var r = target_pos - get_parent().get_pos()
 	var acceleration = -K*EARTH_MASS*mass*r/pow(r.length(),3)
 	return acceleration
 
 func _fixed_process(delta):
-	var heavies = self.get_tree().get_nodes_in_group("heavies")
+	var heavies = get_tree().get_nodes_in_group("heavies")
 	for heavy in heavies:
 		if heavy==self:
 			continue
@@ -32,5 +32,5 @@ func _fixed_process(delta):
 			heavy.get_parent().change_speed(a*delta)
 
 func _is_heavy():
-	return self.gravity_atracted
+	return gravity_atracted
 
