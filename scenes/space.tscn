@@ -89,5 +89,9 @@ transform/pos = Vector2( 897.35, 475.927 )
 
 transform/pos = Vector2( 231.191, -396.465 )
 
+[node name="Cruiser 2" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 1590.02, 959.589 )
+
 
 [editable path="Planet"]
