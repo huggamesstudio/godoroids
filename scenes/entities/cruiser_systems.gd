@@ -51,4 +51,4 @@ func hurt(damage):
 		self.die();
 
 func die():
-	self.queue_free()
+	cruiser.queue_free()

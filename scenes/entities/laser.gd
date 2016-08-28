@@ -1,21 +1,31 @@
 
-extends KinematicBody2D
+extends Node
+
+var laser
 
 var BASE_SPEED = 10
-var LIFE_TICKS = 60
+var BASE_DAMAGE = 10
+var life_ticks = 60
 var vector_speed = Vector2(0,0)
 
+
 func _ready():
+	laser = self.get_parent()
+	
 	self.set_fixed_process(true)
-	var rotation = self.get_rot()
-	self.vector_speed = Vector2(cos(rotation), -sin(rotation))*self.BASE_SPEED
+	var rotation = laser.get_rot()
+	laser.change_speed(Vector2(cos(rotation), -sin(rotation))*self.BASE_SPEED)
 	
 func _fixed_process(delta):
-	move(self.vector_speed)
-	self.LIFE_TICKS -= 1
-	if self.LIFE_TICKS < 1:
-		self.queue_free()
+	if laser.is_colliding():
+		var collider_systems = laser.get_collider().get_node("Systems")
+		if collider_systems and collider_systems.has_method("hurt"):
+			collider_systems.hurt(BASE_DAMAGE)
+		laser.queue_free()
 	
-func change_speed(extra_speed):
-	self.vector_speed += extra_speed
+	self.life_ticks -= 1
+	if self.life_ticks < 1:
+		laser.queue_free()
+		
+
 

@@ -46,7 +46,7 @@ func hurt(damage):
 		self.die();
 
 func die():
-	self.queue_free()
+	ship.queue_free()
 
 func start_charging_propulsion():
 	charging_propulsion = true
