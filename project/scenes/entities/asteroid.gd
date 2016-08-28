@@ -2,7 +2,7 @@
 extends Node
 
 func _ready():
-	var asteroid = self.get_parent()
+	var asteroid = get_parent()
 	asteroid.add_to_group("asteroids")
 	
 	var sprite = asteroid.get_node("Sprite")

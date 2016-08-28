@@ -10,28 +10,28 @@ var in_orbit = false
 
 
 func _ready():
-	cruiser = self.get_parent()
+	cruiser = get_parent()
 	
-	self.set_fixed_process(true)
+	set_fixed_process(true)
 	
 	var sprite = cruiser.get_node("Sprite")
 	var color = Color(1,1,0)
 	sprite.set_modulate(color)
 
 func _fixed_process(delta):
-	if self.locked:
-		if self.in_orbit:
+	if locked:
+		if in_orbit:
 			_orbital_adjustment()
 		else:
 			_go_to_planet()
 	else:
 		_search_planet()
 	
-	self._look_for_targets()
+	_look_for_targets()
 
 # Searchs for the closest planet and locks it up
 func _search_planet():
-	var planets = self.get_tree().get_nodes_in_group("planets")
+	var planets = get_tree().get_nodes_in_group("planets")
 	if planets.empty():
 		return
 	var closest_distance
@@ -46,8 +46,8 @@ func _search_planet():
 			closest_distance = distance
 			closest_planet = planet
 	
-	self.locked_planet = closest_planet
-	self.locked = true
+	locked_planet = closest_planet
+	locked = true
 
 func _go_to_planet():
 	var planet_radius = locked_planet.get_node("Properties").get_radius()
@@ -59,8 +59,8 @@ func _go_to_planet():
 	elif(distance.length() < 1.7*planet_radius):
 		var angle_fromwards_planet = distance.angle() - PI/2
 		cruiser.orienting_to(angle_fromwards_planet, PI/24)
-		if (self._keep_distance(distance, 1.5*planet_radius, 10)):
-			self._match_speed(cruiser.get_speed(), locked_planet.get_speed().length(), distance, 0.01)
+		if (_keep_distance(distance, 1.5*planet_radius, 10)):
+			_match_speed(cruiser.get_speed(), locked_planet.get_speed().length(), distance, 0.01)
 		var speed = cruiser.get_speed()
 		if speed.length() < 1:
 			cruiser.set_retrorockets_vector(Vector2(distance.y, -distance.x))
@@ -98,7 +98,7 @@ func _orbital_adjustment():
 	cruiser.orienting_to(angle_fromwards_planet, PI/24)
 
 func _look_for_targets():
-	var ships = self.get_tree().get_nodes_in_group("ships")
+	var ships = get_tree().get_nodes_in_group("ships")
 	var reach = 3000
 	var max_shooting_angle = PI/3
 	var target

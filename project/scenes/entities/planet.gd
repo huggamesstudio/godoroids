@@ -7,7 +7,7 @@ const EARTH_RADIUS = 256
 export var radius = 1
 
 func _ready():
-	planet = self.get_parent()
+	planet = get_parent()
 	planet.add_to_group("planets")
 	
 	var sprite = planet.get_node("Sprite")
