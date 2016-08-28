@@ -1,8 +1,5 @@
 extends Node
 
-const MAX_LIFE = 100
-const RELOAD_TIME = 0.2
-
 var cruiser
 # Planet to be defended
 var locked_planet
@@ -11,12 +8,6 @@ var locked_planet
 var locked = false
 var in_orbit = false
 
-export var life = 100
-
-
-var shooting = false
-var shooting_target_pos = Vector2(0,0)
-var reload_countdown = 0
 
 func _ready():
 	cruiser = self.get_parent()
@@ -37,10 +28,6 @@ func _fixed_process(delta):
 		_search_planet()
 	
 	self._look_for_targets()
-	if self.shooting and self.reload_countdown <= 0:
-		self.shoot()
-	if self.reload_countdown > 0:
-		self.reload_countdown -= delta
 
 # Searchs for the closest planet and locks it up
 func _search_planet():
@@ -119,35 +106,12 @@ func _look_for_targets():
 		var distance = cruiser.get_pos() - ship.get_pos()
 		var angle_forward = fposmod(distance.angle()+PI/2, 2*PI) - cruiser.get_rot()
 		if ( distance.length() < reach and \
-			(abs(angle_forward)<max_shooting_angle or abs(angle_forward-2*PI)<max_shooting_angle) ):
+				(abs(angle_forward)<max_shooting_angle or abs(angle_forward-2*PI)<max_shooting_angle) ):
 			target = ship
 			break
 			
+	var cruiser_systems = cruiser.get_node("CruiserSystems")
 	if (target):
-		self._shooting_to(target.get_pos())
+		cruiser_systems.shooting_to(target.get_pos())
 	else:
-		self._stop_shooting()
-
-func _shooting_to(target_pos):
-	self.shooting = true
-	self.shooting_target_pos = target_pos
-
-func _stop_shooting():
-	self.shooting = false
-
-func shoot():
-	self.reload_countdown = self.RELOAD_TIME
-	var distance = cruiser.get_pos() - self.shooting_target_pos
-	var laser = load("res://scenes/entities/laser.tscn").instance()
-	laser.set_rot(distance.angle() + PI/2)
-	laser.set_pos(cruiser.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
-	cruiser.get_parent().add_child(laser)
-	laser.change_speed(cruiser.speed)
-
-func hurt(damage):
-	self.life -= damage
-	if self.life <= 0:
-		self.die();
-
-func die():
-	self.queue_free()
+		cruiser_systems.stop_shooting()

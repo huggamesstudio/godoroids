@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
 [ext_resource path="res://images/bg-far.png" type="Texture" id=2]
 [ext_resource path="res://images/bg-close.png" type="Texture" id=3]
 [ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/entities/cruiser.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/modules/cruiser_AI.tscn" type="PackedScene" id=6]
 
 [node name="Game" type="Node2D"]
 
@@ -89,9 +90,12 @@ transform/pos = Vector2( 897.35, 475.927 )
 
 transform/pos = Vector2( 231.191, -396.465 )
 
+[node name="CruiserAI" parent="Cruiser" instance=ExtResource( 6 )]
+
 [node name="Cruiser 2" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 1590.02, 959.589 )
 
+[node name="CruiserAI" parent="Cruiser 2" instance=ExtResource( 6 )]
 
-[editable path="Planet"]
+
