@@ -1,31 +1,30 @@
-
 extends Node
 
-var laser
+
+var _head
 
 var BASE_SPEED = 10
 var BASE_DAMAGE = 10
-var life_ticks = 60
-var vector_speed = Vector2(0,0)
+var _life_ticks = 60
 
 
 func _ready():
-	laser = get_parent()
+	_head = get_parent()
 	
 	set_fixed_process(true)
-	var rotation = laser.get_rot()
-	laser.change_speed(Vector2(cos(rotation), -sin(rotation))*BASE_SPEED)
+	var rotation = _head.get_rot()
+	_head.change_speed(Vector2(cos(rotation), -sin(rotation))*BASE_SPEED)
 	
 func _fixed_process(delta):
-	if laser.is_colliding():
-		var collider_systems = laser.get_collider().get_node("Systems")
+	if _head.is_colliding():
+		var collider_systems = _head.get_collider().get_node("Systems")
 		if collider_systems and collider_systems.has_method("hurt"):
 			collider_systems.hurt(BASE_DAMAGE)
-		laser.queue_free()
+		_head.queue_free()
 	
-	life_ticks -= 1
-	if life_ticks < 1:
-		laser.queue_free()
+	_life_ticks -= 1
+	if _life_ticks < 1:
+		_head.queue_free()
 		
 
 

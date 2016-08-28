@@ -1,5 +1,5 @@
-
 extends Node
+
 
 func _ready():
 	var asteroid = get_parent()

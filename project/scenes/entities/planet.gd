@@ -1,23 +1,21 @@
-
 extends Node
 
-var planet
+
+var _head
 
 const EARTH_RADIUS = 256
-export var radius = 1
+export var _radius = 1
 
 func _ready():
-	planet = get_parent()
-	planet.add_to_group("planets")
+	_head = get_parent()
+	_head.add_to_group("planets")
 	
-	var sprite = planet.get_node("Sprite")
-	sprite.set_scale(Vector2(radius, radius))
+	var sprite = _head.get_node("Sprite")
+	sprite.set_scale(Vector2(_radius, _radius))
 	var color = Color(0,0,1)
 	sprite.set_modulate(color)
 	
-	planet.get_node("CollisionCircle").get_shape().set_radius(radius*EARTH_RADIUS)
+	_head.get_node("CollisionCircle").get_shape().set_radius(_radius*EARTH_RADIUS)
 
 func get_radius():
-	return radius*EARTH_RADIUS
-
-
+	return _radius*EARTH_RADIUS
