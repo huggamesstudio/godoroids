@@ -9,7 +9,7 @@ const MAX_PROPULSION_CHARGE = 1.0
 const MAX_PROPULSION_SPD_CHANGE = 20
 const RELOAD_TIME = 0.2
 
-var ship_body
+var ship
 
 export var life = 100
 var reload_countdown = 0
@@ -20,9 +20,9 @@ var charging_propulsion = false
 
 func _ready():
 	self.set_process(true)
-	self.get_parent().add_to_group("ships")
+	ship = self.get_parent()
+	ship.add_to_group("ships")
 	self.life = self.MAX_LIFE
-	ship_body = self.get_parent()
 
 func _process(delta):
 	# Shooting
@@ -51,13 +51,13 @@ func start_charging_propulsion():
 func propulsion():
 	charging_propulsion = false
 	var speed_impulse = pow(propulsion_charge,2)*MAX_PROPULSION_SPD_CHANGE
-	ship_body.speed_impulse(speed_impulse)
+	ship.speed_impulse(speed_impulse)
 	propulsion_charge = 0.0
 
 func shoot():
 	self.reload_countdown = self.RELOAD_TIME
 	var laser = load("res://scenes/entities/laser.tscn").instance()
-	laser.set_rot(ship_body.get_rot())
-	laser.set_pos(ship_body.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
-	ship_body.get_parent().add_child(laser)
-	laser.change_speed(ship_body.speed)
+	laser.set_rot(ship.get_rot())
+	laser.set_pos(ship.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
+	ship.get_parent().add_child(laser)
+	laser.change_speed(ship.speed)
