@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://images/animations/laser_explosion_1.png" type="Texture" id=1]
+[ext_resource path="res://images/animations/laser_explosion_2.png" type="Texture" id=2]
+[ext_resource path="res://images/animations/laser_explosion_3.png" type="Texture" id=3]
+[ext_resource path="res://laser_explosion_anim.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ], "loop":true, "name":"LaserExplosion", "speed":5.0 } ]
+
+[node name="LaserExplosion" type="AnimatedSprite"]
+
+frames = SubResource( 1 )
+animation = "LaserExplosion"
+frame = 1
+playing = true
+script/script = ExtResource( 4 )
+
+

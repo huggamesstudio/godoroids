@@ -20,11 +20,11 @@ func _fixed_process(delta):
 		var collider_systems = _head.get_collider().get_node("Systems")
 		if collider_systems and collider_systems.has_method("hurt"):
 			collider_systems.hurt(BASE_DAMAGE)
+		var explosion = load("res://scenes/entities/laser_explosion_anim.tscn").instance()
+		explosion.set_pos(_head.get_pos())
+		_head.get_parent().add_child(explosion)
 		_head.queue_free()
 	
 	_life_ticks -= 1
 	if _life_ticks < 1:
 		_head.queue_free()
-		
-
-
