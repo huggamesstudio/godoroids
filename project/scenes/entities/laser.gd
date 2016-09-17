@@ -2,6 +2,7 @@ extends Node
 
 
 var _head
+var _physics
 
 var BASE_SPEED = 10
 var BASE_DAMAGE = 10
@@ -10,14 +11,16 @@ var _life_ticks = 60
 
 func _ready():
 	_head = get_parent()
+	_physics = _head.get_node("BodyPhysics")
 	
 	set_fixed_process(true)
 	var rotation = _head.get_rot()
-	_head.change_speed(Vector2(cos(rotation), -sin(rotation))*BASE_SPEED)
+	_physics.change_speed(Vector2(cos(rotation), -sin(rotation))*BASE_SPEED)
 	
 func _fixed_process(delta):
-	if _head.is_colliding():
-		var collider_systems = _head.get_collider().get_node("Systems")
+	var colliders = _head.get_overlapping_bodies()
+	for collider in colliders:
+		var collider_systems = collider.get_node("Systems")
 		if collider_systems and collider_systems.has_method("hurt"):
 			collider_systems.hurt(BASE_DAMAGE)
 		var explosion = load("res://scenes/entities/laser_explosion_anim.tscn").instance()

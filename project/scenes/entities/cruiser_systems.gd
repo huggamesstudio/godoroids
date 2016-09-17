@@ -5,6 +5,7 @@ const MAX_LIFE = 100
 const RELOAD_TIME = 0.2
 
 var _head
+var _physics
 
 export var _life = 100
 
@@ -14,6 +15,7 @@ var _reload_countdown = 0
 
 func _ready():
 	_head = get_parent()
+	_physics = _head.get_node("BodyPhysics")
 	
 	set_fixed_process(true)
 
@@ -43,7 +45,7 @@ func shoot():
 	laser.set_rot(_shooting_angle)
 	laser.set_pos(_head.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
 	_head.get_parent().add_child(laser)
-	laser.change_speed(_head.get_speed())
+	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())
 
 func hurt(damage):
 	_life -= damage

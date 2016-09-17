@@ -7,6 +7,7 @@ extends Node
 
 
 var _head
+var _physics
 
 const K = 5.0
 const EARTH_MASS = 15000.0
@@ -22,6 +23,8 @@ func _ready():
 	
 func gravity(target_pos):
 	var r = target_pos - _head.get_pos()
+	if r.length() == 0:
+		return Vector2(0, 0)
 	var acceleration = -K*EARTH_MASS*_mass*r/pow(r.length(),3)
 	return acceleration
 
@@ -30,9 +33,10 @@ func _fixed_process(delta):
 	for heavy in heavies:
 		if heavy==self:
 			continue
-		if heavy.get_parent().has_method("change_speed"):
+		var heavy_physics = heavy.get_parent().get_node("BodyPhysics")
+		if heavy_physics and heavy_physics.has_method("change_speed"):
 			var a = gravity(heavy.get_parent().get_pos())
-			heavy.get_parent().change_speed(a*delta)
+			heavy_physics.change_speed(a*delta)
 
 func _is_heavy():
 	return _gravity_atracted

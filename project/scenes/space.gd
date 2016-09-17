@@ -10,6 +10,7 @@ func _ready():
 	var ship_scene = load("res://scenes/entities/ship.tscn")
 	var ship_instance = ship_scene.instance()
 	add_child(ship_instance)
+	ship_instance.set_pos(Vector2(-300,-300))
 	
 	# Load player 1 behavior (input) into the ship
 	var player1_int = load("res://scenes/modules/player1_intelligence.tscn").instance()

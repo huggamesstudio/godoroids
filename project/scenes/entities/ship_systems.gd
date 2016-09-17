@@ -11,6 +11,7 @@ const MAX_PROPULSION_SPD_CHANGE = 20
 const RELOAD_TIME = 0.2
 
 var _head
+var _physics
 
 export var _life = 100
 var _reload_countdown = 0
@@ -22,6 +23,7 @@ var _charging_propulsion = false
 func _ready():
 	set_process(true)
 	_head = get_parent()
+	_physics = _head.get_node("BodyPhysics")
 	_head.add_to_group("ships")
 	_life = MAX_LIFE
 
@@ -55,7 +57,7 @@ func start_charging_propulsion():
 func propulsion():
 	_charging_propulsion = false
 	var speed_impulse = pow(_propulsion_charge,2)*MAX_PROPULSION_SPD_CHANGE
-	_head.speed_impulse(speed_impulse)
+	_physics._speed_impulse(speed_impulse)
 	_propulsion_charge = 0.0
 
 func shoot():
@@ -64,4 +66,4 @@ func shoot():
 	laser.set_rot(_head.get_rot())
 	laser.set_pos(_head.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
 	_head.get_parent().add_child(laser)
-	laser.change_speed(_head.get_speed())
+	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())

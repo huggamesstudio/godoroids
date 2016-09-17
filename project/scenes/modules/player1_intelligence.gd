@@ -10,46 +10,48 @@ extends Node
 
 
 var _head
+var _physics
 
 func _ready():
 	_head = get_parent()
+	_physics = _head.get_node("BodyPhysics")
 	set_process_input(true)
 	
 func _input(event):
 	ship_input(event)
 
 func ship_input(event):
-	if _head.is_in_automatic_mode():
+	if _physics.is_in_automatic_mode():
 		return
 	var ship_systems = _head.get_node("Systems")
 		
 	if event.is_action_pressed("game_turnleft"):
 		get_tree().set_input_as_handled()
-		_head.rotating_left()
+		_physics.rotating_left()
 	if event.is_action_released("game_turnleft"):
 		get_tree().set_input_as_handled()
-		_head.rot_engines_stop()
+		_physics.rot_engines_stop()
 
 	if event.is_action_pressed("game_turnright"):
 		get_tree().set_input_as_handled()
-		_head.rotating_right()
+		_physics.rotating_right()
 	if event.is_action_released("game_turnright"):
 		get_tree().set_input_as_handled()
-		_head.rot_engines_stop()
+		_physics.rot_engines_stop()
 
 	if event.is_action_pressed("game_accel"):
 		get_tree().set_input_as_handled()
-		_head.accelerating()
+		_physics.accelerating()
 	if event.is_action_released("game_accel"):
 		get_tree().set_input_as_handled()
-		_head.engines_stop()
+		_physics.engines_stop()
 	
 	if event.is_action_pressed("game_break"):
 		get_tree().set_input_as_handled()
-		_head.breaking()
+		_physics.breaking()
 	if event.is_action_released("game_break"):
 		get_tree().set_input_as_handled()
-		_head.engines_stop()
+		_physics.engines_stop()
 	
 	if event.is_action_pressed("game_shoot"):
 		get_tree().set_input_as_handled()

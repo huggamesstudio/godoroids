@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node
 
 
 # This script extends a KinematicBody2D to implement _speed and acceleration.
@@ -25,7 +25,10 @@ var _rotating_right = false
 
 var _automatic_mode
 
+var _head
+
 func _ready():
+	_head = get_parent()
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -73,12 +76,12 @@ func change_speed(_speed_delta):
 		_speed = _speed.normalized()*SPD_MAX
 
 func _speed_impulse(_speed_delta_impulse):
-	var rot = get_rot()
+	var rot = _head.get_rot()
 	var _speed_delta = _speed_delta_impulse*Vector2(cos(rot), -sin(rot))
 	change_speed(_speed_delta)
 
 func _speed_break(_speed_delta_impulse):
-	var rot = get_rot()
+	var rot = _head.get_rot()
 	var _speed_delta = _speed_delta_impulse*Vector2(cos(rot), -sin(rot))
 	change_speed(-_speed_delta)
 
@@ -93,11 +96,11 @@ func go_still(tolerance):
 	
 func go_cruising_speed(cruising_speed, tolerance):
 	var success = true
-	var drifting_angle = get_rot() - (_speed.angle()+PI/2)
+	var drifting_angle = _head.get_rot() - (_speed.angle()+PI/2)
 	var drifting_speed = _speed.length()*sin(drifting_angle)
 	var facing_forward = -cos(drifting_angle) > 0
 	if (abs(drifting_speed) > tolerance):
-		set_retrorockets_vector(sign(drifting_speed)*Vector2(sin(get_rot()), cos(get_rot())))
+		set_retrorockets_vector(sign(drifting_speed)*Vector2(sin(_head.get_rot()), cos(_head.get_rot())))
 		retrorockets_on()
 		success = false
 	else:
@@ -130,7 +133,7 @@ func stop_rotation():
 
 func orienting_to(free_range_angle, tolerance):
 	var target_angle = fposmod(free_range_angle, 2*PI)
-	var self_rot = fposmod(get_rot(),2*PI)
+	var self_rot = fposmod(_head.get_rot(),2*PI)
 	if (abs(target_angle-self_rot) < tolerance):
 		stop_rotation()
 		return true
@@ -168,12 +171,11 @@ func movement(delta):
 		else:
 			_rotation_speed += ROT_FRICTION * delta
 
-	set_rot(get_rot()+_rotation_speed * delta)
-	
-	if is_colliding():
-		_speed = Vector2(0,0)
-	
-	move(_speed)
+	_head.set_rot(_head.get_rot()+_rotation_speed * delta)
+	if _head.has_method("move"):
+		_head.move(_speed)
+	else:
+		_head.set_pos(_head.get_pos()+_speed*delta*100)
 
 func is_in_automatic_mode():
 	return _automatic_mode
