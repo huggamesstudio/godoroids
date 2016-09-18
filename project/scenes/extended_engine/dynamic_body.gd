@@ -6,7 +6,7 @@ extends Node
 
 
 const LINEAR_ACCEL = 1.5
-const RETROROCKET_ACCEL = 1.5
+const THRUSTER_ACCEL = 1.5
 const SPD_MAX = 30.0
 
 const ROT_ACCEL = 22.5
@@ -17,8 +17,8 @@ export var _speed = Vector2(0, 0)
 export var _rotation_speed = 0
 
 var _accelerating = false
-var _retrorockets_adjusting = false
-var _retrorockets_vector = Vector2(1,0)
+var _thrusters_adjusting = false
+var _thrusters_vector = Vector2(1,0)
 var _breaking = false
 var _rotating_left = false
 var _rotating_right = false
@@ -37,8 +37,8 @@ func _fixed_process(delta):
 func get_speed():
 	return _speed
 
-func set_retrorockets_vector(new_retrorocket_vector):
-	_retrorockets_vector = new_retrorocket_vector.normalized()
+func set_thrusters_vector(new_thruster_vector):
+	_thrusters_vector = new_thruster_vector.normalized()
 
 func accelerating():
 	_accelerating = true
@@ -52,11 +52,11 @@ func engines_stop():
 	_accelerating = false
 	_breaking = false
 
-func retrorockets_on():
-	_retrorockets_adjusting = true
+func thrusters_on():
+	_thrusters_adjusting = true
 
-func retrorockets_off():
-	_retrorockets_adjusting = false
+func thrusters_off():
+	_thrusters_adjusting = false
 
 func rotating_left():
 	_rotating_left=true
@@ -87,11 +87,11 @@ func _speed_break(_speed_delta_impulse):
 
 func go_still(tolerance):
 	if _speed.length()<tolerance:
-		retrorockets_off()
+		thrusters_off()
 		return true
 	var stoping_vector = -_speed
-	set__retrorockets_vector(stoping_vector)
-	retrorockets_on()
+	set__thrusters_vector(stoping_vector)
+	thrusters_on()
 	return false
 	
 func go_cruising_speed(cruising_speed, tolerance):
@@ -100,11 +100,11 @@ func go_cruising_speed(cruising_speed, tolerance):
 	var drifting_speed = _speed.length()*sin(drifting_angle)
 	var facing_forward = -cos(drifting_angle) > 0
 	if (abs(drifting_speed) > tolerance):
-		set_retrorockets_vector(sign(drifting_speed)*Vector2(sin(_head.get_rot()), cos(_head.get_rot())))
-		retrorockets_on()
+		set_thrusters_vector(sign(drifting_speed)*Vector2(sin(_head.get_rot()), cos(_head.get_rot())))
+		thrusters_on()
 		success = false
 	else:
-		retrorockets_off()
+		thrusters_off()
 		success = true
 	
 	var delta_speed = _speed.length()-cruising_speed
@@ -153,9 +153,9 @@ func movement(delta):
 	if _accelerating:
 		_speed_impulse(LINEAR_ACCEL * delta)
 	if _breaking:
-		_speed_break(RETROROCKET_ACCEL * delta)
-	if _retrorockets_adjusting:
-		change_speed(RETROROCKET_ACCEL * delta * _retrorockets_vector)
+		_speed_break(THRUSTER_ACCEL * delta)
+	if _thrusters_adjusting:
+		change_speed(THRUSTER_ACCEL * delta * _thrusters_vector)
 		
 	if abs(_rotation_speed) > ROT_SPEED_MAX:
 		if _rotation_speed > 0:

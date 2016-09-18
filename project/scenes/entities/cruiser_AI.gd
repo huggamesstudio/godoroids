@@ -66,13 +66,13 @@ func _go_to_planet():
 			_match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
 		var speed = _physics.get_speed()
 		if speed.length() < 1:
-			_physics.set_retrorockets_vector(Vector2(distance.y, -distance.x))
-			_physics.retrorockets_on()
+			_physics.set_thrusters_vector(Vector2(distance.y, -distance.x))
+			_physics.thrusters_on()
 		elif speed.length() > 1:
-			_physics.set_retrorockets_vector(-Vector2(distance.y, -distance.x))
-			_physics.retrorockets_on()
+			_physics.set_thrusters_vector(-Vector2(distance.y, -distance.x))
+			_physics.thrusters_on()
 		else:
-			_physics.retrorockets_off()
+			_physics.thrusters_off()
 		
 		
 func _keep_distance(current_distance, desired_distance, tolerance):
