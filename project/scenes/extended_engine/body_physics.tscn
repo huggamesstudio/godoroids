@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=1]
 
-[ext_resource path="res://scenes/extended_engine/dynamic_body.gd" type="Script" id=1]
+[ext_resource path="res://scenes/extended_engine/body_physics.gd" type="Script" id=1]
 
 [node name="BodyPhysics" type="Node"]
 

@@ -3,6 +3,7 @@ extends Node
 
 var _head
 var _physics
+var _engines
 # Planet to be defended
 var _locked_planet
 
@@ -14,12 +15,9 @@ var _in_orbit = false
 func _ready():
 	_head = get_parent()
 	_physics = _head.get_node("BodyPhysics")
+	_engines = _head.get_node("Engines")
 	
 	set_fixed_process(true)
-	
-	var sprite = _head.get_node("Sprite")
-	var color = Color(1,1,0)
-	sprite.set_modulate(color)
 
 func _fixed_process(delta):
 	if _locked:
@@ -57,30 +55,30 @@ func _go_to_planet():
 	var distance = _head.get_pos() - _locked_planet.get_pos()
 	if distance.length() > 1.7*planet_radius:
 		var angle_towards_planet = distance.angle() + PI/2
-		_physics.orienting_to(angle_towards_planet, PI/24)
-		_physics.go_cruising_speed(1,0.01)
+		_engines.orienting_to(angle_towards_planet, PI/24)
+		_engines.go_cruising_speed(1,0.01)
 	elif(distance.length() < 1.7*planet_radius):
 		var angle_fromwards_planet = distance.angle() - PI/2
-		_physics.orienting_to(angle_fromwards_planet, PI/24)
+		_engines.orienting_to(angle_fromwards_planet, PI/24)
 		if (_keep_distance(distance, 1.5*planet_radius, 10)):
 			_match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
 		var speed = _physics.get_speed()
 		if speed.length() < 1:
-			_physics.set_thrusters_vector(Vector2(distance.y, -distance.x))
-			_physics.thrusters_on()
+			_engines.set_thrusters_vector(Vector2(distance.y, -distance.x))
+			_engines.thrusters_on()
 		elif speed.length() > 1:
-			_physics.set_thrusters_vector(-Vector2(distance.y, -distance.x))
-			_physics.thrusters_on()
+			_engines.set_thrusters_vector(-Vector2(distance.y, -distance.x))
+			_engines.thrusters_on()
 		else:
-			_physics.thrusters_off()
+			_engines.thrusters_off()
 		
 		
 func _keep_distance(current_distance, desired_distance, tolerance):
 	var success = false
 	if (current_distance.length() < desired_distance - tolerance):
-		_physics.accelerating()
+		_engines.accelerating()
 	elif (current_distance.length() > desired_distance + tolerance):
-		_physics.breaking()
+		_engines.breaking()
 	else:
 		success = true
 	return success
@@ -89,16 +87,16 @@ func _match_speed(current_speed, desired_speed, axis, tolerance):
 	var axis_norm = axis.normalized()
 	var speed_along_axis = current_speed.dot(axis_norm)
 	if (speed_along_axis < desired_speed - tolerance):
-		_physics.accelerating()
+		_engines.accelerating()
 	if (speed_along_axis > desired_speed + tolerance):
-		_physics.breaking()
+		_engines.breaking()
 	else:
-		_physics.engines_stop()
+		_engines.engines_stop()
 
 func _orbital_adjustment():
 	var distance = _head.get_pos() - _locked_planet.get_pos()
 	var angle_fromwards_planet = distance.angle() - PI/2 +2*PI
-	_physics.orienting_to(angle_fromwards_planet, PI/24)
+	_engines.orienting_to(angle_fromwards_planet, PI/24)
 
 func _look_for_targets():
 	var ships = get_tree().get_nodes_in_group("ships")

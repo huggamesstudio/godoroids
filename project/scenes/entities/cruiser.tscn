@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://images/cruiser.png" type="Texture" id=1]
 [ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/entities/cruiser_systems.gd" type="Script" id=3]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/modules/engines.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -47,6 +49,7 @@ points = Vector2Array( 17.625, -0.863828, 15.4129, -3.39027, 17.625, -1.71513 )
 
 [node name="Cruiser" type="KinematicBody2D"]
 
+transform/scale = Vector2( 0.4, 0.4 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 6.96388, 0, 0, 16.0271, -92.6943, 21.1041 )
@@ -76,7 +79,7 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="TeamSprite" type="Sprite" parent="."]
 
 texture = ExtResource( 1 )
 
@@ -92,7 +95,6 @@ trigger = false
 [node name="GravityWell" parent="." instance=ExtResource( 2 )]
 
 _mass = 0.01
-_gravity_atracted = true
 
 [node name="Systems" type="Node" parent="."]
 
@@ -100,5 +102,11 @@ script/script = ExtResource( 3 )
 _life = 100
 
 [node name="BodyPhysics" parent="." instance=ExtResource( 4 )]
+
+_rot_speed = 0
+
+[node name="Engines" parent="." instance=ExtResource( 5 )]
+
+[node name="Team" parent="." instance=ExtResource( 6 )]
 
 

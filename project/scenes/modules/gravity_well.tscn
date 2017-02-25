@@ -5,7 +5,7 @@
 [node name="GravityWell" type="Node"]
 
 script/script = ExtResource( 1 )
-mass = 1.0
-gravity_atracted = true
+_mass = 1.0
+_gravity_atracted = true
 
 

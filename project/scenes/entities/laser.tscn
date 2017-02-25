@@ -11,6 +11,7 @@ extents = Vector2( 11.7555, 5.49727 )
 
 [node name="Laser" type="Area2D"]
 
+transform/scale = Vector2( 0.4, 0.4 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.923401, 0, 0, 0.327819, 0.0211563, -0.104529 )
@@ -37,5 +38,7 @@ _update_shape_index = 0
 script/script = ExtResource( 2 )
 
 [node name="BodyPhysics" parent="." instance=ExtResource( 3 )]
+
+_rot_speed = 0
 
 

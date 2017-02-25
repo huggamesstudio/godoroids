@@ -11,64 +11,71 @@ extends Node
 
 var _head
 var _physics
+var _systems
+var _engines
+var _bays
 
 func _ready():
 	_head = get_parent()
 	_physics = _head.get_node("BodyPhysics")
+	_systems = _head.get_node("Systems")
+	_engines = _head.get_node("Engines")
+	_bays = _head.get_node("Bays")
 	set_process_input(true)
 	
 func _input(event):
-	ship_input(event)
-
-func ship_input(event):
-	if _physics.is_in_automatic_mode():
+	if _engines.is_in_automatic_mode():
 		return
-	var ship_systems = _head.get_node("Systems")
 		
 	if event.is_action_pressed("game_turnleft"):
 		get_tree().set_input_as_handled()
-		_physics.rotating_left()
+		_engines.rotating_left()
 	if event.is_action_released("game_turnleft"):
 		get_tree().set_input_as_handled()
-		_physics.rot_engines_stop()
+		_engines.rot_engines_stop()
 
 	if event.is_action_pressed("game_turnright"):
 		get_tree().set_input_as_handled()
-		_physics.rotating_right()
+		_engines.rotating_right()
 	if event.is_action_released("game_turnright"):
 		get_tree().set_input_as_handled()
-		_physics.rot_engines_stop()
+		_engines.rot_engines_stop()
 
 	if event.is_action_pressed("game_accel"):
 		get_tree().set_input_as_handled()
-		_physics.accelerating()
+		_engines.accelerating()
 	if event.is_action_released("game_accel"):
 		get_tree().set_input_as_handled()
-		_physics.engines_stop()
+		_engines.engines_stop()
 	
 	if event.is_action_pressed("game_break"):
 		get_tree().set_input_as_handled()
-		_physics.breaking()
+		_engines.breaking()
 	if event.is_action_released("game_break"):
 		get_tree().set_input_as_handled()
-		_physics.engines_stop()
+		_engines.engines_stop()
 	
 	if event.is_action_pressed("game_shoot"):
 		get_tree().set_input_as_handled()
-		if ship_systems != null:
-			ship_systems.shooting()
+		if _systems != null:
+			_systems.shooting()
 	if event.is_action_released("game_shoot"):
 		get_tree().set_input_as_handled()
-		if ship_systems != null:
-			ship_systems.stop_shooting()
+		if _systems != null:
+			_systems.stop_shooting()
 			
 	if event.is_action_pressed("game_propulsion"):
 		get_tree().set_input_as_handled()
-		if ship_systems != null:
-			ship_systems.start_charging_propulsion()
+		if _systems != null:
+			_systems.start_charging_propulsion()
 	if event.is_action_released("game_propulsion"):
 		get_tree().set_input_as_handled()
-		if ship_systems != null:
-			ship_systems.propulsion()
+		if _systems != null:
+			_systems.propulsion()
+	
+	if event.is_action_pressed("game_fighter_eject"):
+		get_tree().set_input_as_handled()
+		if _bays != null:
+			_bays.eject_fighter()
 
 
