@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
-[ext_resource path="res://images/bg-far.png" type="Texture" id=2]
-[ext_resource path="res://images/bg-close.png" type="Texture" id=3]
+[ext_resource path="res://resources/images/bg-far.png" type="Texture" id=2]
+[ext_resource path="res://resources/images/bg-close.png" type="Texture" id=3]
 [ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/entities/cruiser.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/modules/cruiser_AI.tscn" type="PackedScene" id=6]

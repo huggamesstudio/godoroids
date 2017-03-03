@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://images/planet.png" type="Texture" id=1]
-[ext_resource path="res://images/blue_marble.png" type="Texture" id=2]
+[ext_resource path="res://resources/images/planet.png" type="Texture" id=1]
+[ext_resource path="res://resources/images/blue_marble.png" type="Texture" id=2]
 [ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/entities/planet.gd" type="Script" id=4]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=5]
