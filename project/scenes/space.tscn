@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://scenes/space.gd" type="Script" id=1]
 [ext_resource path="res://resources/images/bg-far.png" type="Texture" id=2]
 [ext_resource path="res://resources/images/bg-close.png" type="Texture" id=3]
-[ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/entities/cruiser.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/modules/cruiser_AI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/entities/mothership.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/modules/player1_intelligence.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/entities/ship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/modules/player1_intelligence.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/entities/planet.tscn" type="PackedScene" id=6]
 
 [node name="Game" type="Node2D"]
 
@@ -65,28 +63,13 @@ margin/bottom = 1498.0
 texture = ExtResource( 3 )
 stretch_mode = 0
 
-[node name="Planet" parent="." instance=ExtResource( 4 )]
+[node name="Ship" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 897.35, 475.927 )
+[node name="Player1Input" parent="Ship" instance=ExtResource( 5 )]
 
-[node name="Cruiser" parent="." instance=ExtResource( 5 )]
+[node name="Camera2D" type="Camera2D" parent="Ship"]
 
-[node name="CruiserAI" parent="Cruiser" instance=ExtResource( 6 )]
-
-[node name="Cruiser 2" parent="." instance=ExtResource( 5 )]
-
-transform/pos = Vector2( 1535.92, 954.271 )
-
-[node name="CruiserAI" parent="Cruiser 2" instance=ExtResource( 6 )]
-
-[node name="MotherShip" parent="." instance=ExtResource( 7 )]
-
-transform/pos = Vector2( -18.1766, 368.076 )
-
-[node name="Player1Input" parent="MotherShip" instance=ExtResource( 8 )]
-
-[node name="Camera2D" type="Camera2D" parent="MotherShip"]
-
+transform/scale = Vector2( 2.5, 2.5 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -104,5 +87,8 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
+[node name="Planet" parent="." instance=ExtResource( 6 )]
 
-[editable path="Cruiser 2/CruiserAI"]
+transform/pos = Vector2( 897.35, 475.927 )
+
+
