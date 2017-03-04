@@ -25,6 +25,7 @@ func _fixed_process(delta):
 			if collider_systems and collider_systems.has_method("hurt"):
 				collider_systems.hurt(BASE_DAMAGE)
 		var explosion = load("res://scenes/animations/laser_explosion_anim.tscn").instance()
+		explosion.set_scale(Vector2(0.4, 0.4))
 		explosion.set_pos(_head.get_pos())
 		_head.get_parent().add_child(explosion)
 		_head.queue_free()
