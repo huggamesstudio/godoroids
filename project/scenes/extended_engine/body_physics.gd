@@ -33,6 +33,9 @@ func _fixed_process(delta):
 func get_speed():
 	return _speed
 
+func set_speed(speed):
+	_speed = speed
+
 func change_speed(speed_delta):
 	_speed += speed_delta
 	if _speed.length() > SPEED_MAX:
