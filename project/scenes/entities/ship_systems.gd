@@ -57,7 +57,7 @@ func start_charging_propulsion():
 func propulsion():
 	_charging_propulsion = false
 	var speed_impulse = pow(_propulsion_charge,2)*MAX_PROPULSION_SPD_CHANGE
-	_physics._speed_impulse(speed_impulse)
+	_physics.speed_impulse(speed_impulse)
 	_propulsion_charge = 0.0
 
 func shoot():
