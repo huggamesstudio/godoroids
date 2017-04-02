@@ -11,10 +11,9 @@ animations = [ { "frames":[ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 )
 
 [node name="LaserExplosion" type="AnimatedSprite"]
 
-transform/scale = Vector2( 0.4, 0.4 )
 frames = SubResource( 1 )
 animation = "LaserExplosion"
-frame = 2
+frame = 1
 playing = true
 script/script = ExtResource( 4 )
 
