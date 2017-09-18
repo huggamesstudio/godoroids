@@ -6,8 +6,8 @@ func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
 
-	#build_ship_scene()
-	build_mothership_scene()
+	build_ship_scene()
+	#build_mothership_scene()
 
 func _fixed_process(delta):
 	pass
