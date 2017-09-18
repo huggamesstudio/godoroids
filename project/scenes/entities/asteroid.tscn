@@ -51,12 +51,13 @@ trigger = false
 [node name="GravityWell" parent="." instance=ExtResource( 2 )]
 
 _mass = 0.1
-_gravity_atracted = true
 
 [node name="Properties" type="Node" parent="."]
 
 script/script = ExtResource( 3 )
 
 [node name="BodyPhysics" parent="." instance=ExtResource( 4 )]
+
+_rot_speed = 0
 
 

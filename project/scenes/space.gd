@@ -37,6 +37,13 @@ func build_ship_scene():
 	# Load player 1 behavior (input) into the ship
 	var player1_int = load("res://scenes/modules/player1_intelligence.tscn").instance()
 	ship_instance.add_child(player1_int)
+	
+	var ai_ship_instance = ship_scene.instance()
+	add_child(ai_ship_instance)
+	ai_ship_instance.set_pos(Vector2(-250,-300))
+	var ship_ai = load("res://scenes/modules/ship_ai.tscn").instance()
+	ai_ship_instance.add_child(ship_ai)
+	ai_ship_instance.get_node("Team").set_team(2)
 
 	# Assign the scene camera to the player ship
 	var camera = get_node("Camera2D")
