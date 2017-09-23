@@ -1,10 +1,18 @@
 extends Node2D
 
+var _hud
+var _space_bodies
+var _space_ships
+
 func _ready():
 
 	# State async configuration
 	set_fixed_process(true)
 	set_process_input(true)
+
+	_hud = get_node("Hud")
+	_space_bodies = get_node("Actors/Bodies")
+	_space_ships = get_node("Actors/Ships")
 
 	#build_gauge_scene()
 	build_ship_scene()
@@ -25,32 +33,33 @@ func build_ship_scene():
 	# Instance a planet
 	var planet_scene = load("res://scenes/entities/planet.tscn")
 	var planet_instance = planet_scene.instance()
-	add_child(planet_instance)
-	planet_instance.get_node("Team").set_team(1)
+	_space_bodies.add_child(planet_instance)
 
 	# Load and instance the player ship
 	var ship_scene = load("res://scenes/entities/ship.tscn")
 	var ship_instance = ship_scene.instance()
-	add_child(ship_instance)
+	_space_ships.add_child(ship_instance)
 	ship_instance.set_pos(Vector2(-300,-300))
 	ship_instance.get_node("Team").set_team(1)
 
 	# Load player 1 behavior (input) into the ship
 	var player1_int = load("res://scenes/modules/player1_intelligence.tscn").instance()
 	ship_instance.add_child(player1_int)
-	
+
+	# AI ship
 	var ai_ship_instance = ship_scene.instance()
-	add_child(ai_ship_instance)
+	_space_ships.add_child(ai_ship_instance)
 	ai_ship_instance.set_pos(Vector2(-250,-300))
+
+	# Load AI module into the ship
 	var ship_ai = load("res://scenes/modules/ship_ai.tscn").instance()
 	ai_ship_instance.add_child(ship_ai)
 	ai_ship_instance.get_node("Team").set_team(2)
 
-	# Assign the scene camera to the player ship
+	# Assign HUD to player ship
 	var camera = get_node("Camera")
-	var current_camera_parent = camera.get_parent()
-	current_camera_parent.remove_child(camera)
-	ship_instance.add_child(camera)
+	_hud.set_camera(camera)
+	_hud.set_reference_actor(ship_instance)
 
 func build_mothership_scene():
 

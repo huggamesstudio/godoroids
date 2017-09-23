@@ -65,6 +65,14 @@ margin/bottom = 1498.0
 texture = ExtResource( 4 )
 stretch_mode = 0
 
+[node name="Actors" type="Node" parent="."]
+
+editor/display_folded = true
+
+[node name="Bodies" type="Node" parent="Actors"]
+
+[node name="Ships" type="Node" parent="Actors"]
+
 [node name="Camera" type="Camera2D" parent="."]
 
 anchor_mode = 1
