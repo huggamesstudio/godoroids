@@ -46,7 +46,7 @@ func build_ship_scene():
 	ai_ship_instance.get_node("Team").set_team(2)
 
 	# Assign the scene camera to the player ship
-	var camera = get_node("Camera2D")
+	var camera = get_node("Camera")
 	var current_camera_parent = camera.get_parent()
 	current_camera_parent.remove_child(camera)
 	ship_instance.add_child(camera)
@@ -86,7 +86,7 @@ func build_mothership_scene():
 	mothership_instance.set_pos(Vector2(-18.1766, 368.076))
 
 	# Assign the scene camera to the mothership
-	var camera = get_node("Camera2D")
+	var camera = get_node("Camera")
 	var current_camera_parent = camera.get_parent()
 	current_camera_parent.remove_child(camera)
 	mothership_instance.add_child(camera)
