@@ -6,7 +6,8 @@ func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
 
-	build_ship_scene()
+	build_gauge_scene()
+	#build_ship_scene()
 	#build_mothership_scene()
 
 func _fixed_process(delta):
@@ -90,3 +91,16 @@ func build_mothership_scene():
 	var current_camera_parent = camera.get_parent()
 	current_camera_parent.remove_child(camera)
 	mothership_instance.add_child(camera)
+
+func build_gauge_scene():
+	var gauge_scene = load("res://scenes/interface/gauge_4_circle.tscn")
+	var gauge_instance = gauge_scene.instance()
+	add_child(gauge_instance)
+	gauge_instance.set_pos(Vector2(300,300))
+	gauge_instance.enable_blink(true)
+	gauge_instance.modulate_blink(Color(1,0,0))
+	gauge_instance.set_inner_value(0.5)
+	gauge_instance.set_outer_value(0.25)
+	gauge_instance.modulate_inner(Color(0.95,0.95,1))
+	gauge_instance.modulate_outer(Color(0,1,0))
+	gauge_instance.modulate_border(Color(1,0,1))
