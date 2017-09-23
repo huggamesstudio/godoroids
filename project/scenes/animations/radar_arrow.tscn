@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://resources/animations/radar_arrow_1.png" type="Texture" id=1]
+[ext_resource path="res://resources/animations/radar_arrow_2.png" type="Texture" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "RadarArrow",
+"speed": 10.0
+} ]
+
+[node name="RadarArrow" type="AnimatedSprite"]
+
+frames = SubResource( 1 )
+animation = "RadarArrow"
+playing = true
+
+
