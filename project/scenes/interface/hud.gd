@@ -26,18 +26,25 @@ func set_camera(camera):
 func set_reference_actor(actor):
 	_ref_actor = weakref(actor)
 
-	var camera = _camera.get_ref()
-	if not camera:
+	if not _camera:
 		return
 	else:
-		var current_camera_parent = camera.get_parent()
-		current_camera_parent.remove_child(camera)
-		actor.add_child(camera)
+		var camera = _camera.get_ref()
+		if not camera:
+			return
+		else:
+			var current_camera_parent = camera.get_parent()
+			current_camera_parent.remove_child(camera)
+			actor.add_child(camera)
 
 func _process(delta):
-	var ref_actor = _ref_actor.get_ref()
-	if not ref_actor:
+	var ref_actor = null
+	if not _ref_actor:
 		return
+	else:
+		ref_actor = _ref_actor.get_ref()
+		if not ref_actor:
+			return
 
 	var ref_actor_systems = ref_actor.get_node("Systems")
 	if ref_actor_systems:
@@ -71,9 +78,13 @@ func _process(delta):
 func _update_other_actors():
 	_other_actors = []
 
-	var ref_actor = _ref_actor.get_ref()
-	if not ref_actor:
+	var ref_actor = null
+	if not _ref_actor:
 		return
+	else:
+		ref_actor = _ref_actor.get_ref()
+		if not ref_actor:
+			return
 
 	var reference_actor_team_number = 0
 	var reference_actor_team = ref_actor.get_node("Team")
