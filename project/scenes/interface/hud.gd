@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var ARROW_DISTANCE = 450
+
 var _life_shield_gauge
 var _arrow_box
 var _arrows
@@ -27,8 +29,6 @@ func set_reference_actor(actor):
 	current_camera_parent.remove_child(_camera)
 	_ref_actor.add_child(_camera)
 
-	_update_other_actors()
-
 func _update_other_actors():
 	var ship_actors = get_parent().get_node("Actors/Ships").get_children()
 	var reference_actor_team_number = _ref_actor.get_node("Team").get_team()
@@ -45,6 +45,8 @@ func _process(delta):
 	if not _ref_actor:
 		return
 
+	_update_other_actors()
+
 	var arrow_size_delta = _arrows.size() - _other_actors.size()
 	if arrow_size_delta > 0:
 		var left_arrow = null
@@ -58,4 +60,18 @@ func _process(delta):
 			arrow_instance = arrow_scene.instance()
 			_arrow_box.add_child(arrow_instance)
 			_arrows.append(arrow_instance)
+
+	var other = null
+	var ref_2_other = null
+	var ship_index = 0
+	for arrow in _arrows:
+		other = _other_actors[ship_index]
+		ref_2_other = (other.get_pos()-_ref_actor.get_pos())
+		if ref_2_other.length() < 500:
+			arrow.hide()
+		else:
+			arrow.show()
+			arrow.set_rot(ref_2_other.angle()-deg2rad(90))
+			arrow.set_pos(Vector2(810,390)+(ref_2_other.normalized()*ARROW_DISTANCE))
+		ship_index += 1
 
