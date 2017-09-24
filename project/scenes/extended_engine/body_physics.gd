@@ -4,9 +4,7 @@ extends Node
 # This script extends a KinematicBody2D to implement _speed and acceleration.
 # It converts it into a "DynamicBody2D".
 
-const SPEED_MAX = 30.0
-const ROT_SPEED_MAX = 20.0
-const ROT_FRICTION = 7.5
+
 
 export var _speed = Vector2(0, 0)
 export var _rot_speed = 0
@@ -19,10 +17,10 @@ func _ready():
 
 func _fixed_process(delta):
 	
-	if abs(_rot_speed) <= (ROT_FRICTION * delta):
+	if abs(_rot_speed) <= (Global.ROT_FRICTION * delta):
 		_rot_speed = 0
 	else:
-		change_rot_speed(-1*sign(_rot_speed)*ROT_FRICTION*delta)
+		change_rot_speed(-1*sign(_rot_speed)*Global.ROT_FRICTION*delta)
 	_head.set_rot(_head.get_rot()+_rot_speed * delta)
 	
 	if _head.has_method("move"):
@@ -38,8 +36,8 @@ func set_speed(speed):
 
 func change_speed(speed_delta):
 	_speed += speed_delta
-	if _speed.length() > SPEED_MAX:
-		_speed = _speed.normalized()*SPEED_MAX
+	if _speed.length() > Global.SPEED_MAX:
+		_speed = _speed.normalized()*Global.SPEED_MAX
 
 func speed_impulse(speed_delta_impulse):
 	var rot = _head.get_rot()
@@ -56,5 +54,5 @@ func get_rot_speed():
 
 func change_rot_speed(rot_speed_delta):
 	_rot_speed += rot_speed_delta
-	if abs(_rot_speed) > ROT_SPEED_MAX:
-		_rot_speed = sign(_rot_speed)*ROT_SPEED_MAX
+	if abs(_rot_speed) > Global.ROT_SPEED_MAX:
+		_rot_speed = sign(_rot_speed)*Global.ROT_SPEED_MAX

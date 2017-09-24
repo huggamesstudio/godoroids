@@ -21,11 +21,11 @@ func _input(event):
 
 func build_ship_scene():
 
-	# Instance a planet
-	var planet_scene = load("res://scenes/entities/planet.tscn")
-	var planet_instance = planet_scene.instance()
-	add_child(planet_instance)
-	planet_instance.get_node("Team").set_team(1)
+#	# Instance a planet
+#	var planet_scene = load("res://scenes/entities/planet.tscn")
+#	var planet_instance = planet_scene.instance()
+#	add_child(planet_instance)
+#	planet_instance.get_node("Team").set_team(1)
 
 	# Load and instance the player ship
 	var ship_scene = load("res://scenes/entities/ship.tscn")
