@@ -11,12 +11,10 @@ func _ready():
 	set_process_input(true)
 
 	_hud = get_node("Hud")
-	_space_bodies = get_node("Actors/Bodies")
-	_space_ships = get_node("Actors/Ships")
 
 	#build_gauge_scene()
-	build_ship_scene()
-	#build_mothership_scene()
+	#build_ship_scene()
+	build_mothership_scene()
 
 func _fixed_process(delta):
 	pass
@@ -33,12 +31,12 @@ func build_ship_scene():
 	# Instance a planet
 	var planet_scene = load("res://scenes/entities/planet.tscn")
 	var planet_instance = planet_scene.instance()
-	_space_bodies.add_child(planet_instance)
+	add_child(planet_instance)
 
 	# Load and instance the player ship
 	var ship_scene = load("res://scenes/entities/ship.tscn")
 	var ship_instance = ship_scene.instance()
-	_space_ships.add_child(ship_instance)
+	add_child(ship_instance)
 	ship_instance.set_pos(Vector2(-300,-300))
 	ship_instance.get_node("Team").set_team(1)
 
@@ -48,7 +46,7 @@ func build_ship_scene():
 
 	# AI ship
 	var ai_ship_instance = ship_scene.instance()
-	_space_ships.add_child(ai_ship_instance)
+	add_child(ai_ship_instance)
 	ai_ship_instance.set_pos(Vector2(-250,-300))
 
 	# Load AI module into the ship
@@ -66,7 +64,7 @@ func build_mothership_scene():
 	# Instance a planet
 	var planet_scene = load("res://scenes/entities/planet.tscn")
 	var planet_instance = planet_scene.instance()
-	_space_bodies.add_child(planet_instance)
+	add_child(planet_instance)
 	planet_instance.set_pos(Vector2(897.35, 475.927))
 
 	# Instance two cruisers
@@ -83,8 +81,8 @@ func build_mothership_scene():
 	cruiser2_instance.get_node("Team")._team = 2
 	cruiser2_instance.add_child(cruiser2_ai_instance)
 
-	_space_ships.add_child(cruiser1_instance)
-	_space_ships.add_child(cruiser2_instance)
+	add_child(cruiser1_instance)
+	add_child(cruiser2_instance)
 
 	cruiser2_instance.set_pos(Vector2(1535.92, 954.271))
 
@@ -95,7 +93,7 @@ func build_mothership_scene():
 	var mothership_ai_instance = player1_ai_module.instance()
 	mothership_instance.get_node("Team")._team = 1
 	mothership_instance.add_child(mothership_ai_instance)
-	_space_ships.add_child(mothership_instance)
+	add_child(mothership_instance)
 	mothership_instance.set_pos(Vector2(-18.1766, 368.076))
 
 	# Assign the scene camera to the mothership

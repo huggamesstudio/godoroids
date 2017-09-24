@@ -134,7 +134,7 @@ func _update_other_actors():
 	if reference_actor_team:
 		reference_actor_team_number = reference_actor_team.get_team()
 
-	var ship_actors = get_parent().get_node("Actors/Ships").get_children()
+	var ship_actors = get_tree().get_nodes_in_group("ships")
 
 	var actor_team = null
 	var actor_team_numer = 0
