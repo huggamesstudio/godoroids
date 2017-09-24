@@ -44,7 +44,7 @@ func shoot():
 	var laser = load("res://scenes/entities/laser.tscn").instance()
 	laser.set_rot(_shooting_angle)
 	laser.set_pos(_head.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
-	_head.get_parent().add_child(laser)
+	_head.get_parent().get_parent().get_node("Shoots").add_child(laser)
 	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())
 
 func hurt(damage):

@@ -15,8 +15,8 @@ func _ready():
 	_space_ships = get_node("Actors/Ships")
 
 	#build_gauge_scene()
-	build_ship_scene()
-	#build_mothership_scene()
+	#build_ship_scene()
+	build_mothership_scene()
 
 func _fixed_process(delta):
 	pass
@@ -66,7 +66,7 @@ func build_mothership_scene():
 	# Instance a planet
 	var planet_scene = load("res://scenes/entities/planet.tscn")
 	var planet_instance = planet_scene.instance()
-	add_child(planet_instance)
+	_space_bodies.add_child(planet_instance)
 	planet_instance.set_pos(Vector2(897.35, 475.927))
 
 	# Instance two cruisers
@@ -75,14 +75,16 @@ func build_mothership_scene():
 
 	var cruiser1_instance = cruiser_scene.instance()
 	var cruiser1_ai_instance = cruiser_ai_module.instance()
+	cruiser1_instance.get_node("Team")._team = 2
 	cruiser1_instance.add_child(cruiser1_ai_instance)
 
 	var cruiser2_instance = cruiser_scene.instance()
 	var cruiser2_ai_instance = cruiser_ai_module.instance()
+	cruiser2_instance.get_node("Team")._team = 2
 	cruiser2_instance.add_child(cruiser2_ai_instance)
 
-	add_child(cruiser1_instance)
-	add_child(cruiser2_instance)
+	_space_ships.add_child(cruiser1_instance)
+	_space_ships.add_child(cruiser2_instance)
 
 	cruiser2_instance.set_pos(Vector2(1535.92, 954.271))
 
@@ -91,15 +93,15 @@ func build_mothership_scene():
 	var player1_ai_module = load("res://scenes/modules/player1_intelligence.tscn")
 	var mothership_instance = mothership_scene.instance()
 	var mothership_ai_instance = player1_ai_module.instance()
+	mothership_instance.get_node("Team")._team = 1
 	mothership_instance.add_child(mothership_ai_instance)
-	add_child(mothership_instance)
+	_space_ships.add_child(mothership_instance)
 	mothership_instance.set_pos(Vector2(-18.1766, 368.076))
 
 	# Assign the scene camera to the mothership
 	var camera = get_node("Camera")
-	var current_camera_parent = camera.get_parent()
-	current_camera_parent.remove_child(camera)
-	mothership_instance.add_child(camera)
+	_hud.set_camera(camera)
+	_hud.set_reference_actor(mothership_instance)
 
 func build_gauge_scene():
 	var gauge_scene = load("res://scenes/interface/gauge_4_circle.tscn")
