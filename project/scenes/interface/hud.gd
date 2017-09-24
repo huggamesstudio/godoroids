@@ -46,6 +46,14 @@ func _process(delta):
 		if not ref_actor:
 			return
 
+	var camera = null
+	if not _camera:
+		return
+	else:
+		camera = _camera.get_ref()
+		if not camera:
+			return
+
 	var ref_actor_systems = ref_actor.get_node("Systems")
 	if ref_actor_systems:
 		var ref_actor_life = float(ref_actor_systems._life)
@@ -61,18 +69,53 @@ func _process(delta):
 	_update_other_actors()
 	_update_arrow_list()
 
+	# Arrow positioning.
+
 	var other = null
 	var ref_2_other = null
+	var ref_2_other_angle = 0
 	var ship_index = 0
 	for arrow in _arrows:
+
+		# We will show all the arrows here and hide it later if they are on range.
+		arrow.show()
+
+		# Get information about arrow's target.
 		other = _other_actors[ship_index]
 		ref_2_other = (other.get_pos()-ref_actor.get_pos())
-		if ref_2_other.length() < 500:
-			arrow.hide()
+		ref_2_other_angle = ref_2_other.angle()
+
+		# Turn the arrow sprite in the correct direction.
+		arrow.set_rot(ref_2_other_angle-deg2rad(90))
+
+		# Arrows can show in 4 diferent sides in a box (ranges).
+		# These are the angle limits for each range.
+		var tetha3 = atan2(_arrow_box.get_size().x, _arrow_box.get_size().y)
+		var tetha4 = -tetha3
+		var tetha2 = deg2rad(180) - tetha3
+		var tetha1 = -tetha2
+
+		# Calculate the screen space vector for the arrow.
+		var xx = 0
+		var yy = 0
+		if ref_2_other_angle > tetha3 and ref_2_other_angle <= tetha2:
+			xx = _arrow_box.get_size().x/2
+			yy = xx * tan(deg2rad(90)-ref_2_other_angle)
+		elif ref_2_other_angle > tetha1 and ref_2_other_angle <= tetha4:
+			xx = -_arrow_box.get_size().x/2
+			yy = xx * tan(deg2rad(90)-ref_2_other_angle)
+		elif ref_2_other_angle > tetha4 and ref_2_other_angle <= tetha3:
+			yy = _arrow_box.get_size().y/2
+			xx = -yy * tan(deg2rad(180)-ref_2_other_angle)
 		else:
-			arrow.show()
-			arrow.set_rot(ref_2_other.angle()-deg2rad(90))
-			arrow.set_pos(Vector2(810,390)+(ref_2_other.normalized()*ARROW_DISTANCE))
+			yy = -_arrow_box.get_size().y/2
+			xx = -yy * tan(deg2rad(180)-ref_2_other_angle)
+		arrow.set_pos((_arrow_box.get_size()/2)+Vector2(xx,yy))
+
+		# If the arrow's target is inside the screen hide the arrow.
+		if ref_2_other.length() < (Vector2(xx, yy) * camera.get_zoom()).length():
+			arrow.hide()
+
 		ship_index += 1
 
 func _update_other_actors():

@@ -15,8 +15,8 @@ func _ready():
 	_space_ships = get_node("Actors/Ships")
 
 	#build_gauge_scene()
-	#build_ship_scene()
-	build_mothership_scene()
+	build_ship_scene()
+	#build_mothership_scene()
 
 func _fixed_process(delta):
 	pass
