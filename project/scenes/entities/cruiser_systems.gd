@@ -15,6 +15,7 @@ var _reload_countdown = 0
 
 func _ready():
 	_head = get_parent()
+	_head.add_to_group("ships")
 	_physics = _head.get_node("BodyPhysics")
 	
 	set_fixed_process(true)

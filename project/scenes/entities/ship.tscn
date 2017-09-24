@@ -42,6 +42,7 @@ _mass = 0.001
 
 script/script = ExtResource( 3 )
 _life = 100
+_shields = 100
 
 [node name="BodyPhysics" parent="." instance=ExtResource( 4 )]
 
