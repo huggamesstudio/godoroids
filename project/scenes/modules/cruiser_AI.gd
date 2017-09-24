@@ -61,7 +61,7 @@ func _go_to_planet():
 		var angle_fromwards_planet = distance.angle() - PI/2
 		_engines.orienting_to(angle_fromwards_planet, PI/24)
 		if (_keep_distance(distance, 1.5*planet_radius, 10)):
-			-engines._match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
+			_engines.match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
 		var speed = _physics.get_speed()
 		if speed.length() < 1:
 			_engines.set_thrusters_vector(Vector2(distance.y, -distance.x))

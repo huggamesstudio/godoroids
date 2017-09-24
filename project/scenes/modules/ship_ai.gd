@@ -34,10 +34,10 @@ func _choose_strategy():
 
 	if target_ship:
 		var distance = (_head.get_pos() - target_ship.get_pos()).length()
-#		if are_shields_up():
-#		_pursue_target(target_ship)
-#		else:
-		_flee_target(target_ship)
+		if _systems.are_shields_up():
+			_pursue_target(target_ship)
+		else:
+			_flee_target(target_ship)
 
 		if distance < Global.LASER_ATTACK_RANGE:
 			_systems.shooting()
