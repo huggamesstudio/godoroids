@@ -61,7 +61,7 @@ func _go_to_planet():
 		var angle_fromwards_planet = distance.angle() - PI/2
 		_engines.orienting_to(angle_fromwards_planet, PI/24)
 		if (_keep_distance(distance, 1.5*planet_radius, 10)):
-			_match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
+			_engines.match_speed(_physics.get_speed(), _locked_planet.get_node("BodyPhysics").get_speed().length(), distance, 0.01)
 		var speed = _physics.get_speed()
 		if speed.length() < 1:
 			_engines.set_thrusters_vector(Vector2(distance.y, -distance.x))
@@ -82,16 +82,6 @@ func _keep_distance(current_distance, desired_distance, tolerance):
 	else:
 		success = true
 	return success
-
-func _match_speed(current_speed, desired_speed, axis, tolerance):
-	var axis_norm = axis.normalized()
-	var speed_along_axis = current_speed.dot(axis_norm)
-	if (speed_along_axis < desired_speed - tolerance):
-		_engines.accelerating()
-	if (speed_along_axis > desired_speed + tolerance):
-		_engines.breaking()
-	else:
-		_engines.engines_stop()
 
 func _orbital_adjustment():
 	var distance = _head.get_pos() - _locked_planet.get_pos()

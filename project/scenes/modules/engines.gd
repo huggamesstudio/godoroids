@@ -109,6 +109,33 @@ func go_cruising_speed(cruising_speed, tolerance):
 	
 	return success
 
+func reduce_speed_along_direction(direction, tolerance):
+	var speed = _physics.get_speed()
+	var drifting_speed = speed.dot(direction.normalized())
+	if (abs(drifting_speed) > tolerance):
+		set_thrusters_vector(-sign(drifting_speed)*direction)
+		thrusters_on()
+	else:
+		thrusters_off()
+
+func match_speed(current_speed_vec, desired_speed, axis, tolerance):
+	var axis_norm = axis.normalized()
+	var speed_along_axis = current_speed_vec.dot(axis_norm)
+	var pointing_vector = Vector2(cos(_head.get_rot()),-sin(_head.get_rot()))
+	var pointing_towards_axis_direction = (axis.dot(pointing_vector) > 0)
+	if (speed_along_axis < desired_speed - tolerance):
+		if pointing_towards_axis_direction:
+			accelerating()
+		else:
+			breaking()
+	elif (speed_along_axis > desired_speed + tolerance):
+		if pointing_towards_axis_direction:
+			breaking()
+		else:
+			accelerating()
+	else:
+		engines_stop()
+
 func stop_rotation(tolerance):
 	var rot_speed = _physics.get_rot_speed()
 	if  rot_speed > tolerance:
