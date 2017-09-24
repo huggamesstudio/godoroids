@@ -33,7 +33,7 @@ func modulate_blink(color):
 	_dot.set_modulate(color)
 
 func set_inner_value(value):
-	if value > 0 and value < 1:
+	if value >= 0 and value <= 1:
 		value = -(value-1)
 		_inner.set_region_rect(Rect2(
 			0,
@@ -47,7 +47,7 @@ func modulate_inner(color):
 	_inner.set_modulate(color)
 
 func set_outer_value(value):
-	if value > 0 and value < 1:
+	if value >= 0 and value <= 1:
 		value = -(value-1)
 		_outer.set_region_rect(Rect2(
 			0,
