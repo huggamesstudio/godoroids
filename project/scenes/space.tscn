@@ -73,6 +73,8 @@ editor/display_folded = true
 
 [node name="Ships" type="Node" parent="Actors"]
 
+[node name="Shoots" type="Node" parent="Actors"]
+
 [node name="Camera" type="Camera2D" parent="."]
 
 anchor_mode = 1
