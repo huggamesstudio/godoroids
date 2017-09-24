@@ -10,6 +10,7 @@ func _ready():
 func eject_fighter():
 	# Load and instance the player ship
 	var fighter = load("res://scenes/entities/ship.tscn").instance()
+	fighter.get_node("Team")._team = get_parent().get_node("Team")._team
 	_head.get_parent().add_child(fighter)
 	fighter.set_pos(_head.get_pos()+100*Vector2(-sin(_head.get_rot()), -cos(_head.get_rot())))
 	fighter.set_rotd(_head.get_rotd()+90)
@@ -21,8 +22,6 @@ func eject_fighter():
 	if (player1_int != null):
 		_head.remove_child(player1_int)
 		fighter.add_child(player1_int)
-	var camera = _head.get_node("Camera2D")
-	if (camera != null):
-		_head.remove_child(camera)
-		fighter.add_child(camera)
+	var hud = _head.get_parent().get_node("Hud")
+	hud.set_reference_actor(fighter)
 	

@@ -6,6 +6,7 @@ extends Node
 
 
 const MAX_LIFE = 100
+const MAX_SHIELDS = 100
 const MAX_PROPULSION_CHARGE = 1.0
 const MAX_PROPULSION_SPD_CHANGE = 20
 const RELOAD_TIME = 0.2
@@ -14,6 +15,7 @@ var _head
 var _physics
 
 export var _life = 100
+export var _shields = 100
 var _reload_countdown = 0
 var _propulsion_charge = 0
 
@@ -26,6 +28,7 @@ func _ready():
 	_physics = _head.get_node("BodyPhysics")
 	_head.add_to_group("ships")
 	_life = MAX_LIFE
+	_shields = MAX_SHIELDS
 
 func _process(delta):
 	# Shooting
@@ -44,9 +47,17 @@ func stop_shooting():
 	_shooting = false
 
 func hurt(damage):
+	if _shields > 0:
+		if damage <= _shields:
+			_shields -= damage
+			return
+		else:
+			damage -= _shields
+			_shields = 0
+
 	_life -= damage
 	if _life <= 0:
-		die();
+		die()
 
 func die():
 	_head.queue_free()
