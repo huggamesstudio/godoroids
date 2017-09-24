@@ -45,6 +45,11 @@ func _process(delta):
 	if not _ref_actor:
 		return
 
+	var ref_actor_life = [_ref_actor.get_node("Systems")._life, _ref_actor.get_node("Systems").MAX_LIFE]
+	var ref_actor_shields = [_ref_actor.get_node("Systems")._shields, _ref_actor.get_node("Systems").MAX_SHIELDS]
+	_life_shield_gauge.set_inner_value(float(ref_actor_life[0])/float(ref_actor_life[1]))
+	_life_shield_gauge.set_outer_value(float(ref_actor_shields[0])/float(ref_actor_shields[1]))
+
 	_update_other_actors()
 
 	var arrow_size_delta = _arrows.size() - _other_actors.size()
