@@ -11,14 +11,12 @@ extends Node
 
 var _head
 var _physics
-var _systems
 var _engines
 var _bays
 
 func _ready():
 	_head = get_parent()
 	_physics = _head.get_node("BodyPhysics")
-	_systems = _head.get_node("Systems")
 	_engines = _head.get_node("Engines")
 	_bays = _head.get_node("Bays")
 	set_process_input(true)
@@ -57,21 +55,17 @@ func _input(event):
 	
 	if event.is_action_pressed("game_shoot"):
 		get_tree().set_input_as_handled()
-		if _systems != null:
-			_systems.shooting()
+		_head.shooting()
 	if event.is_action_released("game_shoot"):
 		get_tree().set_input_as_handled()
-		if _systems != null:
-			_systems.stop_shooting()
+		_head.stop_shooting()
 			
 	if event.is_action_pressed("game_propulsion"):
 		get_tree().set_input_as_handled()
-		if _systems != null:
-			_systems.start_charging_propulsion()
+		_head.start_charging_propulsion()
 	if event.is_action_released("game_propulsion"):
 		get_tree().set_input_as_handled()
-		if _systems != null:
-			_systems.propulsion()
+		_head.propulsion()
 	
 	if event.is_action_pressed("game_fighter_eject"):
 		get_tree().set_input_as_handled()

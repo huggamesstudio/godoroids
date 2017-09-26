@@ -20,10 +20,8 @@ func _ready():
 func _fixed_process(delta):
 	var colliders = _head.get_overlapping_bodies()
 	for collider in colliders:
-		if (collider.has_node("Systems")):
-			var collider_systems = collider.get_node("Systems")
-			if collider_systems and collider_systems.has_method("hurt"):
-				collider_systems.hurt(BASE_DAMAGE)
+		if collider.has_method("hurt"):
+			collider.hurt(BASE_DAMAGE)
 		var explosion = load("res://scenes/animations/laser_explosion_anim.tscn").instance()
 		explosion.set_scale(Vector2(0.4, 0.4))
 		explosion.set_pos(_head.get_pos())

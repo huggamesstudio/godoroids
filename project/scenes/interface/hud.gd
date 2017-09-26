@@ -54,12 +54,11 @@ func _process(delta):
 		if not camera:
 			return
 
-	var ref_actor_systems = ref_actor.get_node("Systems")
-	if ref_actor_systems:
-		var ref_actor_life = float(ref_actor_systems._life)
-		var ref_actor_life_max = float(ref_actor_systems.MAX_LIFE)
-		var ref_actor_shields = float(ref_actor_systems._shields)
-		var ref_actor_shields_max = float(ref_actor_systems.MAX_SHIELDS)
+	if ref_actor:
+		var ref_actor_life = float(ref_actor._life)
+		var ref_actor_life_max = float(ref_actor.MAX_LIFE)
+		var ref_actor_shields = float(ref_actor._shields)
+		var ref_actor_shields_max = float(ref_actor.MAX_SHIELDS)
 		_life_shield_gauge.set_inner_value(ref_actor_life/ref_actor_life_max)
 		_life_shield_gauge.set_outer_value(ref_actor_shields/ref_actor_shields_max)
 	else:

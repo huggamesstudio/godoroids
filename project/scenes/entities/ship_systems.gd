@@ -11,7 +11,6 @@ const MAX_PROPULSION_CHARGE = 1.0
 const MAX_PROPULSION_SPD_CHANGE = 20
 const RELOAD_TIME = 0.2
 
-var _head
 var _physics
 
 export var _life = 100
@@ -20,18 +19,17 @@ var _reload_countdown = 0
 var _propulsion_charge = 0
 
 var _shooting = false
+var _shooting_angle = 0
 var _charging_propulsion = false
 
 func _ready():
 	set_process(true)
-	_head = get_parent()
-	_physics = _head.get_node("BodyPhysics")
-	_head.add_to_group("ships")
+	add_to_group("ships")
+	_physics = get_node("BodyPhysics")
 	_life = MAX_LIFE
 	_shields = MAX_SHIELDS
 
 func _process(delta):
-	# Shooting
 	if _shooting and _reload_countdown <= 0:
 		shoot()
 	if _reload_countdown > 0:
@@ -42,6 +40,12 @@ func _process(delta):
 
 func shooting():
 	_shooting = true
+	_shooting_angle = get_rot()
+
+func shooting_to(target_pos):
+	_shooting = true
+	var distance = get_pos() - target_pos
+	_shooting_angle = distance.angle() + PI/2
 
 func stop_shooting():
 	_shooting = false
@@ -60,7 +64,7 @@ func hurt(damage):
 		die()
 
 func die():
-	_head.queue_free()
+	queue_free()
 
 func start_charging_propulsion():
 	_charging_propulsion = true
@@ -75,9 +79,9 @@ func shoot():
 	_reload_countdown = RELOAD_TIME
 	var laser = load("res://scenes/entities/laser.tscn").instance()
 	laser.set_scale(Vector2(0.4, 0.4))
-	laser.set_rot(_head.get_rot())
-	laser.set_pos(_head.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
-	_head.get_parent().add_child(laser)
+	laser.set_rot(_shooting_angle)
+	laser.set_pos(get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
+	get_parent().add_child(laser)
 	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())
 
 func are_shields_up():

@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=1]
 
-[ext_resource path="res://resources/images/cruiser.png" type="Texture" id=1]
-[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/entities/cruiser_systems.gd" type="Script" id=3]
+[ext_resource path="res://scenes/entities/ship_systems.gd" type="Script" id=1]
+[ext_resource path="res://resources/images/cruiser.png" type="Texture" id=2]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/modules/engines.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=6]
@@ -78,10 +78,13 @@ shapes/7/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
+script/script = ExtResource( 1 )
+_life = 100
+_shields = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
@@ -92,14 +95,9 @@ polygon = Vector2Array( 11.4312, -7.92138, 11.368, 5.20512, 17.625, 5.20512, 17.
 shape_range = Vector2( 0, 7 )
 trigger = false
 
-[node name="GravityWell" parent="." instance=ExtResource( 2 )]
+[node name="GravityWell" parent="." instance=ExtResource( 3 )]
 
 _mass = 0.01
-
-[node name="Systems" type="Node" parent="."]
-
-script/script = ExtResource( 3 )
-_life = 100
 
 [node name="BodyPhysics" parent="." instance=ExtResource( 4 )]
 

@@ -101,8 +101,7 @@ func _look_for_targets():
 			target = ship
 			break
 			
-	var systems = _head.get_node("Systems")
 	if (target):
-		systems.shooting_to(target.get_pos())
+		_head.shooting_to(target.get_pos())
 	else:
-		systems.stop_shooting()
+		_head.stop_shooting()
