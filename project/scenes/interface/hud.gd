@@ -55,9 +55,9 @@ func _process(delta):
 			return
 
 	if ref_actor:
-		var ref_actor_life = float(ref_actor._life)
+		var ref_actor_life = float(ref_actor.life)
 		var ref_actor_life_max = float(ref_actor.MAX_LIFE)
-		var ref_actor_shields = float(ref_actor._shields)
+		var ref_actor_shields = float(ref_actor.shields)
 		var ref_actor_shields_max = float(ref_actor.MAX_SHIELDS)
 		_life_shield_gauge.set_inner_value(ref_actor_life/ref_actor_life_max)
 		_life_shield_gauge.set_outer_value(ref_actor_shields/ref_actor_shields_max)

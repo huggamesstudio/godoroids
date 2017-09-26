@@ -13,8 +13,8 @@ const RELOAD_TIME = 0.2
 
 var _physics
 
-export var _life = 100
-export var _shields = 100
+export var life = 100
+export var shields = 100
 var _reload_countdown = 0
 var _propulsion_charge = 0
 
