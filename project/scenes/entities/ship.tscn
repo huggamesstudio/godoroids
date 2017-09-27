@@ -54,4 +54,6 @@ _team = 1
 
 [node name="Lasergun" parent="." instance=ExtResource( 7 )]
 
+quality_tier = 1
+
 
