@@ -5,8 +5,8 @@
 [ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/modules/engines.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/modules/bays.gd" type="Script" id=6]
-[ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/modules/bays.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -23,8 +23,8 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
-_life = 100
-_shields = 100
+life = 100
+shields = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -47,10 +47,8 @@ _rot_speed = 0
 
 [node name="Engines" parent="." instance=ExtResource( 5 )]
 
-[node name="Bays" type="Node" parent="."]
+[node name="Team" parent="." instance=ExtResource( 6 )]
 
-script/script = ExtResource( 6 )
-
-[node name="Team" parent="." instance=ExtResource( 7 )]
+[node name="Bays" parent="." instance=ExtResource( 7 )]
 
 

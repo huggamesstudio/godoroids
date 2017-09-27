@@ -26,8 +26,8 @@ func _ready():
 	set_process(true)
 	add_to_group("ships")
 	_physics = get_node("BodyPhysics")
-	_life = MAX_LIFE
-	_shields = MAX_SHIELDS
+	life = MAX_LIFE
+	shields = MAX_SHIELDS
 
 func _process(delta):
 	if _shooting and _reload_countdown <= 0:
@@ -51,16 +51,16 @@ func stop_shooting():
 	_shooting = false
 
 func hurt(damage):
-	if _shields > 0:
-		if damage <= _shields:
-			_shields -= damage
+	if shields > 0:
+		if damage <= shields:
+			shields -= damage
 			return
 		else:
-			damage -= _shields
-			_shields = 0
+			damage -= shields
+			shields = 0
 
-	_life -= damage
-	if _life <= 0:
+	life -= damage
+	if life <= 0:
 		die()
 
 func die():
@@ -76,13 +76,10 @@ func propulsion():
 	_propulsion_charge = 0.0
 
 func shoot():
+	if has_node("Lasergun"):
+		var lasergun = get_node("Lasergun")
+		lasergun.shoot(_shooting_angle)
 	_reload_countdown = RELOAD_TIME
-	var laser = load("res://scenes/entities/laser.tscn").instance()
-	laser.set_scale(Vector2(0.4, 0.4))
-	laser.set_rot(_shooting_angle)
-	laser.set_pos(get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*100)
-	get_parent().add_child(laser)
-	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())
 
 func are_shields_up():
-	return _shields > 0
+	return shields > 0
