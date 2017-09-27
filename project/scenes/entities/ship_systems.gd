@@ -19,6 +19,7 @@ var _reload_countdown = 0
 var _propulsion_charge = 0
 
 var _shooting = false
+var _is_shooting_direction_dettached = false
 var _shooting_angle = 0
 var _charging_propulsion = false
 
@@ -38,12 +39,14 @@ func _process(delta):
 	if _charging_propulsion and _propulsion_charge < MAX_PROPULSION_CHARGE :
 		_propulsion_charge += delta*0.2
 
-func shooting():
+func straight_shooting():
 	_shooting = true
+	_is_shooting_direction_dettached = false
 	_shooting_angle = get_rot()
 
 func shooting_to(target_pos):
 	_shooting = true
+	_is_shooting_direction_dettached = true
 	var distance = get_pos() - target_pos
 	_shooting_angle = distance.angle() + PI/2
 
@@ -78,7 +81,10 @@ func propulsion():
 func shoot():
 	if has_node("Lasergun"):
 		var lasergun = get_node("Lasergun")
-		lasergun.shoot(_shooting_angle)
+		var angle = get_rot()
+		if _is_shooting_direction_dettached:
+			angle = _shooting_angle
+		lasergun.shoot(angle)
 	_reload_countdown = RELOAD_TIME
 
 func are_shields_up():

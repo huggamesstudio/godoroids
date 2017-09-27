@@ -55,7 +55,7 @@ func _input(event):
 	
 	if event.is_action_pressed("game_shoot"):
 		get_tree().set_input_as_handled()
-		_head.shooting()
+		_head.straight_shooting()
 	if event.is_action_released("game_shoot"):
 		get_tree().set_input_as_handled()
 		_head.stop_shooting()

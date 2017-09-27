@@ -39,7 +39,7 @@ func _choose_strategy():
 			_flee_target(target_ship)
 
 		if distance < Global.LASER_ATTACK_RANGE:
-			_head.shooting()
+			_head.straight_shooting()
 		else:
 			_head.stop_shooting()
 		
