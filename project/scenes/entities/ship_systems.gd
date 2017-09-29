@@ -18,6 +18,8 @@ export var shields = 100
 var _reload_countdown = 0
 var _propulsion_charge = 0
 
+var _selected_weapon
+
 var _shooting = false
 var _is_shooting_direction_dettached = false
 var _shooting_angle = 0
@@ -79,13 +81,24 @@ func propulsion():
 	_propulsion_charge = 0.0
 
 func shoot():
-	if has_node("Lasergun"):
-		var lasergun = get_node("Lasergun")
+	if _selected_weapon:
 		var angle = get_rot()
 		if _is_shooting_direction_dettached:
 			angle = _shooting_angle
-		lasergun.shoot(angle)
+		_selected_weapon.shoot(angle)
 	_reload_countdown = RELOAD_TIME
+
+func change_weapons():
+	var weapon_nodes = get_node("Weapons").get_children()
+	var is_next_weapon = 0
+	for weapon in weapon_nodes:
+		if !_selected_weapon or is_next_weapon:
+			_selected_weapon = weapon
+			break
+		if _selected_weapon == weapon:
+			is_next_weapon = 1
+		if is_next_weapon and weapon == weapon_nodes[-1]:
+			_selected_weapon = weapon_nodes[0]
 
 func are_shields_up():
 	return shields > 0

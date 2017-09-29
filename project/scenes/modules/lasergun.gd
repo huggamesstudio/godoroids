@@ -6,7 +6,7 @@ var _physics
 export var quality_tier = 1 #From 1 to 5, being 5 the best weapong
 
 func _ready():
-	_head = get_parent()
+	_head = get_parent().get_parent()
 	_physics = _head.get_node("BodyPhysics")
 
 func shoot(shooting_angle):

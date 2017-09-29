@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scenes/entities/ship_systems.gd" type="Script" id=1]
 [ext_resource path="res://resources/images/ship.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/modules/engines.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/modules/lasergun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/modules/missile_launcher.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -52,8 +53,10 @@ _rot_speed = 0
 
 _team = 1
 
-[node name="Lasergun" parent="." instance=ExtResource( 7 )]
+[node name="Weapons" type="Node" parent="."]
 
-quality_tier = 1
+[node name="Lasergun" parent="Weapons" instance=ExtResource( 7 )]
+
+[node name="MissileLauncher" parent="Weapons" instance=ExtResource( 8 )]
 
 

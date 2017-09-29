@@ -3,8 +3,8 @@ extends Node
 
 var _physics
 
-var BASE_SPEED = 50
-var BASE_DAMAGE = 10
+var BASE_SPEED = 5
+var BASE_DAMAGE = 20
 var _life_ticks = 60
 
 
@@ -21,7 +21,7 @@ func _fixed_process(delta):
 		if collider.has_method("hurt"):
 			collider.hurt(BASE_DAMAGE)
 		var explosion = load("res://scenes/animations/laser_explosion_anim.tscn").instance()
-		explosion.set_scale(Vector2(1, 1))
+		explosion.set_scale(Vector2(2, 2))
 		explosion.set_pos(get_pos())
 		get_parent().add_child(explosion)
 		queue_free()
