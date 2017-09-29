@@ -110,4 +110,6 @@ _rot_speed = 0
 
 [node name="Lasergun" parent="." instance=ExtResource( 7 )]
 
+quality_tier = 1
+
 
