@@ -18,7 +18,7 @@ func _fixed_process(delta):
 	if _reload_countdown > 0:
 		_reload_countdown -= delta
 
-func shoot(shooting_angle):
+func shoot(target_ref, shooting_angle):
 	if _reload_countdown > 0:
 		return
 	

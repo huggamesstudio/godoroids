@@ -59,11 +59,7 @@ func _input(event):
 	if event.is_action_released("game_shoot"):
 		get_tree().set_input_as_handled()
 		_head.stop_shooting()
-	
-	if event.is_action_pressed("game_change_weapon"):
-		get_tree().set_input_as_handled()
-		_head.change_weapons()
-	
+
 	if event.is_action_pressed("game_propulsion"):
 		get_tree().set_input_as_handled()
 		_head.start_charging_propulsion()
@@ -75,5 +71,13 @@ func _input(event):
 		get_tree().set_input_as_handled()
 		if _bays != null:
 			_bays.eject_fighter()
+	
+	if event.is_action_pressed("game_change_weapon"):
+		get_tree().set_input_as_handled()
+		_head.change_weapons()
 
+	if event.is_action_pressed("game_change_target"):
+		get_tree().set_input_as_handled()
+		_head.change_target()
+	
 
