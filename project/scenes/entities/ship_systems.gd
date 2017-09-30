@@ -9,13 +9,11 @@ const MAX_LIFE = 100
 const MAX_SHIELDS = 100
 const MAX_PROPULSION_CHARGE = 1.0
 const MAX_PROPULSION_SPD_CHANGE = 20
-const RELOAD_TIME = 0.2
 
 var _physics
 
 export var life = 100
 export var shields = 100
-var _reload_countdown = 0
 var _propulsion_charge = 0
 
 var _selected_weapon
@@ -33,10 +31,9 @@ func _ready():
 	shields = MAX_SHIELDS
 
 func _process(delta):
-	if _shooting and _reload_countdown <= 0:
+	if _shooting :
 		shoot()
-	if _reload_countdown > 0:
-		_reload_countdown -= delta
+	
 	
 	if _charging_propulsion and _propulsion_charge < MAX_PROPULSION_CHARGE :
 		_propulsion_charge += delta*0.2
@@ -86,19 +83,17 @@ func shoot():
 		if _is_shooting_direction_dettached:
 			angle = _shooting_angle
 		_selected_weapon.shoot(angle)
-	_reload_countdown = RELOAD_TIME
 
 func change_weapons():
 	var weapon_nodes = get_node("Weapons").get_children()
-	var is_next_weapon = 0
-	for weapon in weapon_nodes:
-		if !_selected_weapon or is_next_weapon:
-			_selected_weapon = weapon
-			break
-		if _selected_weapon == weapon:
-			is_next_weapon = 1
-		if is_next_weapon and weapon == weapon_nodes[-1]:
-			_selected_weapon = weapon_nodes[0]
+	if weapon_nodes.size() == 0:
+		return
+	
+	var index_current_weapon = weapon_nodes.find(_selected_weapon)
+	if index_current_weapon < 0 or index_current_weapon == weapon_nodes.size() - 1:
+		_selected_weapon = weapon_nodes[0]
+	else:
+		_selected_weapon = weapon_nodes[index_current_weapon+1]
 
 func are_shields_up():
 	return shields > 0

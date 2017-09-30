@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scenes/entities/missile.gd" type="Script" id=1]
 [ext_resource path="res://resources/images/missile.png" type="Texture" id=2]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/modules/engines.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/modules/gravity_well.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -59,5 +61,11 @@ trigger = false
 [node name="BodyPhysics" parent="." instance=ExtResource( 3 )]
 
 _rot_speed = 0
+
+[node name="Engines" parent="." instance=ExtResource( 4 )]
+
+[node name="GravityWell" parent="." instance=ExtResource( 5 )]
+
+_mass = 0.001
 
 
