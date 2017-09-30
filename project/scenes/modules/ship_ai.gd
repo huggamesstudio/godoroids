@@ -11,9 +11,7 @@ extends Node
 
 var _head
 var _physics
-var _systems
 var _engines
-var _bays
 var _team
 
 
@@ -21,7 +19,6 @@ func _ready():
 	_head = get_parent()
 	_physics = _head.get_node("BodyPhysics")
 	_engines = _head.get_node("Engines")
-	_bays = _head.get_node("Bays")
 	_team = _head.get_node("Team")
 	set_fixed_process(true)
 

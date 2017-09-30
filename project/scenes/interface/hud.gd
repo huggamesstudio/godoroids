@@ -25,51 +25,36 @@ func set_camera(camera):
 
 func set_reference_actor(actor):
 	_ref_actor = weakref(actor)
-
-	if not _camera:
+	
+	if not _camera or not _camera.get_ref():
 		return
-	else:
-		var camera = _camera.get_ref()
-		if not camera:
-			return
-		else:
-			var current_camera_parent = camera.get_parent()
-			current_camera_parent.remove_child(camera)
-			actor.add_child(camera)
+	var camera = _camera.get_ref()
+
+	var current_camera_parent = camera.get_parent()
+	current_camera_parent.remove_child(camera)
+	actor.add_child(camera)
 
 func _process(delta):
-	var ref_actor = null
-	if not _ref_actor:
+	if not _ref_actor or not _ref_actor.get_ref():
 		return
-	else:
-		ref_actor = _ref_actor.get_ref()
-		if not ref_actor:
-			return
+	var ref_actor = _ref_actor.get_ref()
 
-	var camera = null
-	if not _camera:
+	if not _camera or not _camera.get_ref():
 		return
-	else:
-		camera = _camera.get_ref()
-		if not camera:
-			return
+	var camera = _camera.get_ref()
 
-	if ref_actor:
-		var ref_actor_life = float(ref_actor.life)
-		var ref_actor_life_max = float(ref_actor.MAX_LIFE)
-		var ref_actor_shields = float(ref_actor.shields)
-		var ref_actor_shields_max = float(ref_actor.MAX_SHIELDS)
-		_life_shield_gauge.set_inner_value(ref_actor_life/ref_actor_life_max)
-		_life_shield_gauge.set_outer_value(ref_actor_shields/ref_actor_shields_max)
-	else:
-		_life_shield_gauge.set_inner_value(1)
-		_life_shield_gauge.set_outer_value(1)
+	var ref_actor_life = float(ref_actor.life)
+	var ref_actor_life_max = float(ref_actor.MAX_LIFE)
+	var ref_actor_shields = float(ref_actor.shields)
+	var ref_actor_shields_max = float(ref_actor.MAX_SHIELDS)
+	_life_shield_gauge.set_inner_value(ref_actor_life/ref_actor_life_max)
+	_life_shield_gauge.set_outer_value(ref_actor_shields/ref_actor_shields_max)
 
-	_update_other_actors()
+	_update_weapon_indicator(ref_actor)
+	_update_other_actors(ref_actor)
 	_update_arrow_list()
 
 	# Arrow positioning.
-
 	var other = null
 	var ref_2_other = null
 	var ref_2_other_angle = 0
@@ -117,16 +102,11 @@ func _process(delta):
 
 		ship_index += 1
 
-func _update_other_actors():
-	_other_actors = []
+func _update_weapon_indicator(ref_actor):
+	pass
 
-	var ref_actor = null
-	if not _ref_actor:
-		return
-	else:
-		ref_actor = _ref_actor.get_ref()
-		if not ref_actor:
-			return
+func _update_other_actors(ref_actor):
+	_other_actors = []
 
 	var reference_actor_team_number = 0
 	var reference_actor_team = ref_actor.get_node("Team")
