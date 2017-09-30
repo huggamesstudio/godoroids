@@ -10,6 +10,8 @@ var _arrow_box
 var _arrows
 var _arrow_scene = load("res://scenes/animations/radar_arrow.tscn")
 
+var _target_indicator_frame
+
 func _ready():
 	_camera = null
 	_ref_actor = null
@@ -54,6 +56,7 @@ func _process(delta):
 
 	
 	get_node("WeaponsSelectionContainer").update_weapon_indicator(actor.get_selected_weapon())
+	_update_target_indicator(camera, actor.target_ref)
 	_update_other_actors(actor)
 	_update_arrow_list()
 
@@ -141,3 +144,24 @@ func _update_arrow_list():
 			arrow_instance = _arrow_scene.instance()
 			_arrow_box.add_child(arrow_instance)
 			_arrows.append(arrow_instance)
+
+func _update_target_indicator(camera, target_ref):
+	if !target_ref or !target_ref.get_ref():
+		return
+	var INDICATOR_SIZE = 30
+	if !_target_indicator_frame:
+		_target_indicator_frame = Sprite.new()
+		_target_indicator_frame.set_texture(load("res://resources/images/round_icon_frame.png"))
+		add_child(_target_indicator_frame)
+		var scale = Vector2(INDICATOR_SIZE, INDICATOR_SIZE)/_target_indicator_frame.get_texture().get_size()
+		_target_indicator_frame.set_scale(Vector2(scale))
+	var targets = get_tree().get_nodes_in_group("ships")
+	var target_index = targets.find(target_ref.get_ref())
+	if target_index > -1:
+		_target_indicator_frame.show()
+		var camara_position = camera.get_parent().get_pos()
+		var resolution = Vector2(Globals.get("display/width"),Globals.get("display/height"))
+		var target_position_on_camera = targets[target_index].get_pos() - camara_position + resolution/2
+		_target_indicator_frame.set_pos(target_position_on_camera)
+	else:
+		_target_indicator_frame.hide()

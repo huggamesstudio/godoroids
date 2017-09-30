@@ -12,9 +12,9 @@ func _ready():
 
 	_hud = get_node("Hud")
 
-	#build_gauge_scene()
-	#build_ship_scene()
-	build_mothership_scene()
+#	build_gauge_scene()
+	build_ship_scene()
+#	build_mothership_scene()
 
 func _fixed_process(delta):
 	pass
@@ -41,18 +41,25 @@ func build_ship_scene():
 	ship_instance.get_node("Team").set_team(1)
 
 	# Load player 1 behavior (input) into the ship
-	var player1_int = load("res://scenes/modules/player1_intelligence.tscn").instance()
-	ship_instance.add_child(player1_int)
+	var player1_int = load("res://scenes/modules/player1_intelligence.tscn")
+	ship_instance.add_child(player1_int.instance())
 
-	# AI ship
-	var ai_ship_instance = ship_scene.instance()
-	add_child(ai_ship_instance)
-	ai_ship_instance.set_pos(Vector2(-250,-300))
+	# AI ship 1
+	var ai_ship_instance_1 = ship_scene.instance()
+	add_child(ai_ship_instance_1)
+	ai_ship_instance_1.set_pos(Vector2(-250,-300))
+	
+	# AI ship 2
+	var ai_ship_instance_2 = ship_scene.instance()
+	add_child(ai_ship_instance_2)
+	ai_ship_instance_2.set_pos(Vector2(-300,-250))
 
 	# Load AI module into the ship
-	var ship_ai = load("res://scenes/modules/ship_ai.tscn").instance()
-	ai_ship_instance.add_child(ship_ai)
-	ai_ship_instance.get_node("Team").set_team(2)
+	var ship_ai = load("res://scenes/modules/ship_ai.tscn")
+	ai_ship_instance_1.add_child(ship_ai.instance())
+	ai_ship_instance_1.get_node("Team").set_team(2)
+	ai_ship_instance_2.add_child(ship_ai.instance())
+	ai_ship_instance_2.get_node("Team").set_team(3)
 
 	# Assign HUD to player ship
 	var camera = get_node("Camera")
