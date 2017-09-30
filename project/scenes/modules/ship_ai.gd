@@ -29,9 +29,9 @@ func _fixed_process(delta):
 	_choose_strategy()
 
 func _choose_strategy():
-	var target_ship = _set_target()
-
-	if target_ship:
+	var target_ship 
+	if (_head.target_ref and _head.target_ref.get_ref()):
+		target_ship = _head.target_ref.get_ref()
 		var distance = (_head.get_pos() - target_ship.get_pos()).length()
 		if _head.are_shields_up():
 			_pursue_target(target_ship)
@@ -42,7 +42,8 @@ func _choose_strategy():
 			_head.straight_shooting()
 		else:
 			_head.stop_shooting()
-		
+	else:
+		_set_target()
 
 func _set_target():
 	var ships = get_tree().get_nodes_in_group("ships")
@@ -67,9 +68,10 @@ func _set_target():
 			closest_ship = ship
 	
 	if closest_ship:
-		return closest_ship
+		_head.set_target(closest_ship)
 
 func _pursue_target(target_ship):
+
 	var distance_vec_normalized = (target_ship.get_pos() - _head.get_pos()).normalized()
 	var distance_module = (target_ship.get_pos() - _head.get_pos()).length()
 	var angle_towards_target = distance_vec_normalized.angle() - PI/2

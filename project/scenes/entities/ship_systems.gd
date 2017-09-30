@@ -17,7 +17,7 @@ export var shields = 100
 var _propulsion_charge = 0
 
 var _selected_weapon
-var _target_ref
+var target_ref
 
 var _shooting = false
 var _is_shooting_direction_dettached = false
@@ -83,7 +83,7 @@ func shoot():
 		var angle = get_rot()
 		if _is_shooting_direction_dettached:
 			angle = _shooting_angle
-		_selected_weapon.shoot(_target_ref, angle)
+		_selected_weapon.shoot(target_ref, angle)
 
 func change_weapons():
 	var weapon_nodes = get_node("Weapons").get_children()
@@ -99,8 +99,8 @@ func change_weapons():
 func change_target():
 	var ships = get_tree().get_nodes_in_group("ships")
 	var index_current_target = -1
-	if _target_ref and _target_ref.get_ref():
-		index_current_target = ships.find(_target_ref.get_ref())
+	if target_ref and target_ref.get_ref():
+		index_current_target = ships.find(target_ref.get_ref())
 	var i = index_current_target + 1
 	var counter_ships_own_team = 0
 	while(true):
@@ -113,9 +113,11 @@ func change_target():
 				return
 			i += 1
 		else:
-			_target_ref = weakref(ships[i])
+			target_ref = weakref(ships[i])
 			break
 
+func set_target(target):
+	target_ref = weakref(target)
 
 func are_shields_up():
 	return shields > 0
