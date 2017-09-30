@@ -35,7 +35,6 @@ func _process(delta):
 	if _shooting:
 		shoot()
 
-
 	if _charging_propulsion and _propulsion_charge < MAX_PROPULSION_CHARGE :
 		_propulsion_charge += delta*0.2
 
@@ -95,6 +94,9 @@ func change_weapons():
 		_selected_weapon = weapon_nodes[0]
 	else:
 		_selected_weapon = weapon_nodes[index_current_weapon+1]
+
+func get_selected_weapon():
+	return _selected_weapon
 
 func change_target():
 	var ships = get_tree().get_nodes_in_group("ships")

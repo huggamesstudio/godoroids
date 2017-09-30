@@ -33,25 +33,28 @@ func set_reference_actor(actor):
 	var current_camera_parent = camera.get_parent()
 	current_camera_parent.remove_child(camera)
 	actor.add_child(camera)
+	
+	get_node("WeaponsSelectionContainer").set_weapon_indicators(actor.get_node("Weapons").get_children())
 
 func _process(delta):
 	if not _ref_actor or not _ref_actor.get_ref():
 		return
-	var ref_actor = _ref_actor.get_ref()
+	var actor = _ref_actor.get_ref()
 
 	if not _camera or not _camera.get_ref():
 		return
 	var camera = _camera.get_ref()
 
-	var ref_actor_life = float(ref_actor.life)
-	var ref_actor_life_max = float(ref_actor.MAX_LIFE)
-	var ref_actor_shields = float(ref_actor.shields)
-	var ref_actor_shields_max = float(ref_actor.MAX_SHIELDS)
-	_life_shield_gauge.set_inner_value(ref_actor_life/ref_actor_life_max)
-	_life_shield_gauge.set_outer_value(ref_actor_shields/ref_actor_shields_max)
+	var actor_life = float(actor.life)
+	var actor_life_max = float(actor.MAX_LIFE)
+	var actor_shields = float(actor.shields)
+	var actor_shields_max = float(actor.MAX_SHIELDS)
+	_life_shield_gauge.set_inner_value(actor_life/actor_life_max)
+	_life_shield_gauge.set_outer_value(actor_shields/actor_shields_max)
 
-	_update_weapon_indicator(ref_actor)
-	_update_other_actors(ref_actor)
+	
+	get_node("WeaponsSelectionContainer").update_weapon_indicator(actor.get_selected_weapon())
+	_update_other_actors(actor)
 	_update_arrow_list()
 
 	# Arrow positioning.
@@ -66,7 +69,7 @@ func _process(delta):
 
 		# Get information about arrow's target.
 		other = _other_actors[ship_index]
-		ref_2_other = (other.get_pos()-ref_actor.get_pos())
+		ref_2_other = (other.get_pos()-actor.get_pos())
 		ref_2_other_angle = ref_2_other.angle()
 
 		# Turn the arrow sprite in the correct direction.
@@ -102,14 +105,11 @@ func _process(delta):
 
 		ship_index += 1
 
-func _update_weapon_indicator(ref_actor):
-	pass
-
-func _update_other_actors(ref_actor):
+func _update_other_actors(actor):
 	_other_actors = []
 
 	var reference_actor_team_number = 0
-	var reference_actor_team = ref_actor.get_node("Team")
+	var reference_actor_team = actor.get_node("Team")
 	if reference_actor_team:
 		reference_actor_team_number = reference_actor_team.get_team()
 
