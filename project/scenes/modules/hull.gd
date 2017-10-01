@@ -10,4 +10,6 @@ func _ready():
 
 
 func handle_collisions(area):
-	_head.hurt(100000)
+	var collider_parent = area.get_parent()
+	if collider_parent.is_in_group("planets") or collider_parent.is_in_group("ships"):
+		_head.hurt(100000)
