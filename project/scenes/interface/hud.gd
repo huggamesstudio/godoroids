@@ -1,6 +1,9 @@
 extends CanvasLayer
 
-var ARROW_DISTANCE = 450
+var ARROW_SIZE_INITIAL = 0.5
+var ARROW_SIZE_INC_DISTANCE = 2500
+var ARROW_SIZE_INC_VALUE = 0.1
+var ARROW_SIZE_MAXIMUN = 3
 
 var _camera
 var _life_shield_gauge
@@ -74,6 +77,13 @@ func _process(delta):
 		other = _other_actors[ship_index]
 		ref_2_other = (other.get_pos()-actor.get_pos())
 		ref_2_other_angle = ref_2_other.angle()
+
+		# Scale the arrow graph base on distance
+		var arrow_scale = ARROW_SIZE_INITIAL
+		arrow_scale += (ref_2_other.length() / ARROW_SIZE_INC_DISTANCE) * ARROW_SIZE_INC_VALUE
+		if arrow_scale > ARROW_SIZE_MAXIMUN:
+			arrow_scale = ARROW_SIZE_MAXIMUN
+		arrow.set_scale(Vector2(arrow_scale, arrow_scale))
 
 		# Turn the arrow sprite in the correct direction.
 		arrow.set_rot(ref_2_other_angle-deg2rad(90))

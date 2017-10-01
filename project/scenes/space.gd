@@ -53,6 +53,7 @@ func build_ship_scene():
 	var ai_ship_instance_2 = ship_scene.instance()
 	add_child(ai_ship_instance_2)
 	ai_ship_instance_2.set_pos(Vector2(-300,-250))
+	ai_ship_instance_2.shields = 0
 
 	# Load AI module into the ship
 	var ship_ai = load("res://scenes/modules/ship_ai.tscn")
