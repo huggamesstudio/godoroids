@@ -14,7 +14,7 @@ func _ready():
 	var sprite = _head.get_node("Sprite")
 	sprite.set_scale(Vector2(_radius, _radius))
 
-	_head.get_node("CollisionCircle").get_shape().set_radius(_radius*EARTH_RADIUS)
+	_head.get_node("Body").get_node("CollisionCircle").get_shape().set_radius(_radius*EARTH_RADIUS)
 
 
 func get_radius():
