@@ -12,6 +12,7 @@ var _other_actors
 var _arrow_box
 var _arrows
 var _arrow_scene = load("res://scenes/animations/radar_arrow.tscn")
+var _boost
 
 var _target_indicator_frame
 
@@ -22,6 +23,7 @@ func _ready():
 	_life_shield_gauge = get_node("LifeShieldContainer/LifeShield")
 	_arrow_box = get_node("RadarArrowBox")
 	_arrows = []
+	_boost = get_node("BoostIndicator/BoostImage")
 
 	set_process(true)
 
@@ -57,7 +59,14 @@ func _process(delta):
 	_life_shield_gauge.set_inner_value(actor_life/actor_life_max)
 	_life_shield_gauge.set_outer_value(actor_shields/actor_shields_max)
 
-	
+	var actor_boost = actor.get("propulsion_charge")
+	if actor_boost:
+		_boost.set_pos(Vector2((150*actor_boost)/2,0))
+		_boost.set_region_rect(Rect2(0,0,150*actor_boost,50))
+	else:
+		_boost.set_pos(Vector2(0,0))
+		_boost.set_region_rect(Rect2(0,0,0,50))
+
 	get_node("WeaponsSelectionContainer").update_weapon_indicator(actor.get_selected_weapon())
 	_update_target_indicator(camera, actor.target_ref)
 	_update_other_actors(actor)

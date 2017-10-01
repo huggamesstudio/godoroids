@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scenes/interface/hud.gd" type="Script" id=1]
 [ext_resource path="res://scenes/interface/gauge_4_circle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/interface/weapons_selection_container.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/images/boost.png" type="Texture" id=4]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -62,6 +63,28 @@ highlight_all_occurrences = false
 caret/block_caret = false
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
+
+[node name="BoostIndicator" type="ReferenceFrame" parent="."]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 60.0
+margin/right = 10.0
+margin/bottom = 10.0
+
+[node name="BoostImage" type="Sprite" parent="BoostIndicator"]
+
+transform/pos = Vector2( 0, 25 )
+texture = ExtResource( 4 )
+region = true
+region_rect = Rect2( 0, 0, 0, 50 )
 
 
 [editable path="LifeShieldContainer/LifeShield"]

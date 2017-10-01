@@ -14,7 +14,7 @@ var _physics
 
 export var life = 100
 export var shields = 100
-var _propulsion_charge = 0
+var propulsion_charge = 0
 
 var _selected_weapon
 var target_ref
@@ -35,8 +35,8 @@ func _process(delta):
 	if _shooting:
 		shoot()
 
-	if _charging_propulsion and _propulsion_charge < MAX_PROPULSION_CHARGE :
-		_propulsion_charge += delta*0.2
+	if _charging_propulsion and propulsion_charge < MAX_PROPULSION_CHARGE :
+		propulsion_charge += delta*0.2
 
 func straight_shooting():
 	_shooting = true
@@ -73,9 +73,9 @@ func start_charging_propulsion():
 
 func propulsion():
 	_charging_propulsion = false
-	var speed_impulse = pow(_propulsion_charge,2)*MAX_PROPULSION_SPD_CHANGE
+	var speed_impulse = pow(propulsion_charge,2)*MAX_PROPULSION_SPD_CHANGE
 	_physics.speed_impulse(speed_impulse)
-	_propulsion_charge = 0.0
+	propulsion_charge = 0.0
 
 func shoot():
 	if _selected_weapon:
