@@ -67,6 +67,10 @@ func build_ship_scene():
 	_hud.set_camera(camera)
 	_hud.set_reference_actor(ship_instance)
 
+	# Add text to debug window
+	_hud.get_node("DebugWindow").show()
+	_hud.get_node("DebugWindow").set_text("Hola holita")
+
 func build_mothership_scene():
 
 	# Instance a planet

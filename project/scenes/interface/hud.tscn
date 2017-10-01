@@ -45,5 +45,23 @@ margin/bottom = 150.0
 
 transform/pos = Vector2( 174.296, 1025.27 )
 
+[node name="DebugWindow" type="TextEdit" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 10.0
+margin/right = 206.0
+margin/bottom = 118.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
 
 [editable path="LifeShieldContainer/LifeShield"]
