@@ -5,9 +5,7 @@ var ARROW_SIZE_INC_DISTANCE = 2500
 var ARROW_SIZE_INC_VALUE = 0.1
 var ARROW_SIZE_MAXIMUN = 3
 
-var _camera
 var _life_shield_gauge
-var _ref_actor
 var _other_actors
 var _arrow_box
 var _arrows
@@ -17,8 +15,6 @@ var _boost
 var _target_indicator_frame
 
 func _ready():
-	_camera = null
-	_ref_actor = null
 	_other_actors = []
 	_life_shield_gauge = get_node("LifeShieldContainer/LifeShield")
 	_arrow_box = get_node("RadarArrowBox")
@@ -26,17 +22,13 @@ func _ready():
 	_boost = get_node("BoostIndicator/BoostImage")
 
 	set_process(true)
-
-func set_camera(camera):
-	_camera = weakref(camera)
-
-func set_reference_actor(actor):
-	_ref_actor = weakref(actor)
 	
-	if not _camera or not _camera.get_ref():
-		return
-	var camera = _camera.get_ref()
+	set_reference_actor()
 
+func set_reference_actor():
+	var actor = get_parent()
+	
+	var camera = Global.camera
 	var current_camera_parent = camera.get_parent()
 	current_camera_parent.remove_child(camera)
 	actor.add_child(camera)
@@ -44,13 +36,8 @@ func set_reference_actor(actor):
 	get_node("WeaponsSelectionContainer").set_weapon_indicators(actor.get_node("Weapons").get_children())
 
 func _process(delta):
-	if not _ref_actor or not _ref_actor.get_ref():
-		return
-	var actor = _ref_actor.get_ref()
-
-	if not _camera or not _camera.get_ref():
-		return
-	var camera = _camera.get_ref()
+	var actor = get_parent()
+	var camera = Global.camera
 
 	var actor_life = float(actor.life)
 	var actor_life_max = float(actor.MAX_LIFE)

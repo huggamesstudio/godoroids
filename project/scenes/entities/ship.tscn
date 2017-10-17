@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://scenes/entities/ship_systems.gd" type="Script" id=1]
 [ext_resource path="res://resources/images/ship.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/modules/lasergun.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/modules/missile_launcher.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/modules/hull.gd" type="Script" id=9]
+[ext_resource path="res://scenes/modules/ship_ai.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -76,5 +77,7 @@ build_mode = 0
 polygon = Vector2Array( -25.3329, -26.1467, 27.7266, -0.264042, -25.6564, 25.9422 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="AI" parent="." instance=ExtResource( 10 )]
 
 

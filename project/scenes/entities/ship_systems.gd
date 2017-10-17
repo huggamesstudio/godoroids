@@ -24,6 +24,8 @@ var _is_shooting_direction_dettached = false
 var _shooting_angle = 0
 var _charging_propulsion = false
 
+signal player_dead
+
 func _ready():
 	set_process(true)
 	add_to_group("ships")
@@ -66,6 +68,12 @@ func hurt(damage):
 		die()
 
 func die():
+	if has_node("Player1Input"):
+		if has_node("Camera"):
+			var camera = Global.camera
+			remove_child(camera)
+			get_tree().get_root().add_child(camera)
+		emit_signal("player_dead")
 	queue_free()
 
 func start_charging_propulsion():

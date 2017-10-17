@@ -14,8 +14,9 @@ func set_team(team):
 	_head.remove_from_group(Global.TEAM[_team])
 	_team = team
 	_head.add_to_group(Global.TEAM[_team])
-	var sprite = _head.get_node("Sprite")
-	sprite.set_modulate(Global.TEAM_COLORS[_team])
+	if _head.has_node("Sprite"):
+		var sprite = _head.get_node("Sprite")
+		sprite.set_modulate(Global.TEAM_COLORS[_team])
 
 func get_team():
 	return _team;

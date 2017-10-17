@@ -1,6 +1,5 @@
 extends Node2D
 
-var _hud
 var _space_bodies
 var _space_ships
 
@@ -9,14 +8,20 @@ func _ready():
 	# State async configuration
 	set_fixed_process(true)
 	set_process_input(true)
-
-	_hud = get_node("Hud")
+	
+	Global.camera = get_node("Camera")
 
 #	build_gauge_scene()
 	build_ship_scene()
 #	build_mothership_scene()
 
 func _fixed_process(delta):
+		# Add text to debug window
+	if Global.player1_ref and Global.player1_ref.get_ref():
+		var player1 = Global.player1_ref.get_ref()
+		if player1.has_node("Hud"):
+			player1.get_node("Hud").get_node("DebugWindow").show()
+			player1.get_node("Hud").get_node("DebugWindow").set_text("Debug text")
 	pass
 
 func _input(event):
@@ -33,16 +38,10 @@ func build_ship_scene():
 	var planet_instance = planet_scene.instance()
 	add_child(planet_instance)
 
-	# Load and instance the player ship
-	var ship_scene = load("res://scenes/entities/ship.tscn")
-	var ship_instance = ship_scene.instance()
-	add_child(ship_instance)
-	ship_instance.set_pos(Vector2(-300,-300))
-	ship_instance.get_node("Team").set_team(1)
 
-	# Load player 1 behavior (input) into the ship
-	var player1_int = load("res://scenes/modules/player1_intelligence.tscn")
-	ship_instance.add_child(player1_int.instance())
+
+#	# Load and instance the player ship
+	var ship_scene = load("res://scenes/entities/ship.tscn")
 
 	# AI ship 1
 	var ai_ship_instance_1 = ship_scene.instance()
@@ -56,20 +55,9 @@ func build_ship_scene():
 	ai_ship_instance_2.shields = 0
 
 	# Load AI module into the ship
-	var ship_ai = load("res://scenes/modules/ship_ai.tscn")
-	ai_ship_instance_1.add_child(ship_ai.instance())
 	ai_ship_instance_1.get_node("Team").set_team(2)
-	ai_ship_instance_2.add_child(ship_ai.instance())
 	ai_ship_instance_2.get_node("Team").set_team(3)
 
-	# Assign HUD to player ship
-	var camera = get_node("Camera")
-	_hud.set_camera(camera)
-	_hud.set_reference_actor(ship_instance)
-
-	# Add text to debug window
-	_hud.get_node("DebugWindow").show()
-	_hud.get_node("DebugWindow").set_text("Hola holita")
 
 func build_mothership_scene():
 
@@ -108,10 +96,8 @@ func build_mothership_scene():
 	add_child(mothership_instance)
 	mothership_instance.set_pos(Vector2(-18.1766, 368.076))
 
-	# Assign the scene camera to the mothership
-	var camera = get_node("Camera")
-	_hud.set_camera(camera)
-	_hud.set_reference_actor(mothership_instance)
+	var hud = load("res://scenes/interface/hud.tscn").instance()
+	mothership_instance.add_child(hud)
 
 func build_gauge_scene():
 	var gauge_scene = load("res://scenes/interface/gauge_4_circle.tscn")
