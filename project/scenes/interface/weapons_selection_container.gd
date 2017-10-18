@@ -15,7 +15,7 @@ func set_weapon_indicators(weapons):
 	_weapons = weapons
 	var counter = 0
 	for weapon in weapons:
-		var image_name = ResourcesManager.WEAPON_IMAGES[weapon.Id]
+		var image_name = ResourcesManager.WEAPON_IMAGES[weapon.id]
 		var weapon_sprite = Sprite.new()
 		weapon_sprite.set_texture(load("res://resources/images/"+image_name))
 		var scale = Vector2(INDICATOR_SIZE, INDICATOR_SIZE)/weapon_sprite.get_texture().get_size()

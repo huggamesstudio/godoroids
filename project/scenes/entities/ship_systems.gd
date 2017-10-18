@@ -103,6 +103,16 @@ func change_weapons():
 	else:
 		_selected_weapon = weapon_nodes[index_current_weapon+1]
 
+func select_weapon(weapon_id):
+	var weapon_nodes = get_node("Weapons").get_children()
+	if weapon_nodes.size() == 0:
+		return
+
+	for weapon in weapon_nodes:
+		if weapon.id == weapon_id:
+			_selected_weapon = weapon
+			return
+
 func get_selected_weapon():
 	return _selected_weapon
 

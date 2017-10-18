@@ -20,7 +20,10 @@ func _ready():
 	_physics = _head.get_node("BodyPhysics")
 	_engines = _head.get_node("Engines")
 	_team = _head.get_node("Team")
+	
 	set_fixed_process(true)
+	
+	_head.select_weapon('lasergun')
 
 func _fixed_process(delta):
 	_choose_strategy()

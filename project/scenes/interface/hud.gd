@@ -153,6 +153,8 @@ func _update_arrow_list():
 
 func _update_target_indicator(camera, target_ref):
 	if !target_ref or !target_ref.get_ref():
+		if _target_indicator_frame:
+			_target_indicator_frame.hide()
 		return
 	var INDICATOR_SIZE = 30
 	if !_target_indicator_frame:
