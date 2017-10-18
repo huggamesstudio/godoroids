@@ -2,10 +2,12 @@ extends Node2D
 
 export var respawning_time = 5
 export var max_objects = 1
+export var can_spawn_player = false
 
 var _active
 
 var _spawning_countdown
+var _current_number_objects
 
 export var scene = "res://scenes/entities/ship.tscn"
 
@@ -15,6 +17,7 @@ func _ready():
 	set_fixed_process(true)
 	_active = true
 	_spawning_countdown = 0
+	_current_number_objects = 0
 
 func _fixed_process(delta):
 	if _active == false:
@@ -32,7 +35,7 @@ func spawn():
 	get_parent().add_child(instance)
 	if has_node("Team") and instance.has_node("Team"):
 		instance.get_node("Team").set_team(get_node("Team").get_team())
-	if instance.has_node("AI") and (not Global.player1_ref or not Global.player1_ref.get_ref()):
+	if instance.has_node("AI") and can_spawn_player and (not Global.player1_ref or not Global.player1_ref.get_ref()):
 		var player1_int = load("res://scenes/modules/player1_intelligence.tscn")
 		instance.remove_child(instance.get_node("AI"))
 		instance.add_child(player1_int.instance())
@@ -40,12 +43,15 @@ func spawn():
 		instance.add_child(hud)
 		
 		Global.player1_ref = weakref(instance)
-		instance.connect("player_dead", self, "start_respawning")
 		emit_signal("player_created")
+	instance.connect("ship_destroyed", self, "start_respawning")
 	
-
-	_active = false
+	_spawning_countdown = respawning_time
+	_current_number_objects += 1
+	if _current_number_objects >= max_objects:
+		_active = false
 	
 func start_respawning():
-	_active = true
-	_spawning_countdown = respawning_time
+	_current_number_objects -= 1
+	if _current_number_objects < max_objects:
+		_active = true

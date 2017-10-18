@@ -12,13 +12,11 @@ extends Node
 var _head
 var _physics
 var _engines
-var _bays
 
 func _ready():
 	_head = get_parent()
 	_physics = _head.get_node("BodyPhysics")
 	_engines = _head.get_node("Engines")
-	_bays = _head.get_node("Bays")
 	set_process_input(true)
 	
 func _input(event):
@@ -69,8 +67,8 @@ func _input(event):
 	
 	if event.is_action_pressed("game_fighter_eject"):
 		get_tree().set_input_as_handled()
-		if _bays != null:
-			_bays.eject_fighter()
+		if _head.has_node("Bays"):
+			_head.get_node("Bays").eject_fighter()
 	
 	if event.is_action_pressed("game_change_weapon"):
 		get_tree().set_input_as_handled()

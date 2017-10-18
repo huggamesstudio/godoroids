@@ -39,26 +39,6 @@ func build_ship_scene():
 	add_child(planet_instance)
 
 
-
-#	# Load and instance the player ship
-	var ship_scene = load("res://scenes/entities/ship.tscn")
-
-	# AI ship 1
-	var ai_ship_instance_1 = ship_scene.instance()
-	add_child(ai_ship_instance_1)
-	ai_ship_instance_1.set_pos(Vector2(-250,-300))
-	
-	# AI ship 2
-	var ai_ship_instance_2 = ship_scene.instance()
-	add_child(ai_ship_instance_2)
-	ai_ship_instance_2.set_pos(Vector2(-300,-250))
-	ai_ship_instance_2.shields = 0
-
-	# Load AI module into the ship
-	ai_ship_instance_1.get_node("Team").set_team(2)
-	ai_ship_instance_2.get_node("Team").set_team(3)
-
-
 func build_mothership_scene():
 
 	# Instance a planet

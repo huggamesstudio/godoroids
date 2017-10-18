@@ -24,7 +24,7 @@ var _is_shooting_direction_dettached = false
 var _shooting_angle = 0
 var _charging_propulsion = false
 
-signal player_dead
+signal ship_destroyed
 
 func _ready():
 	set_process(true)
@@ -73,7 +73,7 @@ func die():
 			var camera = Global.camera
 			remove_child(camera)
 			get_tree().get_root().add_child(camera)
-		emit_signal("player_dead")
+	emit_signal("ship_destroyed")
 	queue_free()
 
 func start_charging_propulsion():
