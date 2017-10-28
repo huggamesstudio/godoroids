@@ -4,6 +4,7 @@ export var respawning_time = 5
 export var max_objects = 1
 export var can_spawn_player = false
 
+export var disable = false
 var _active
 
 var _spawning_countdown
@@ -20,7 +21,7 @@ func _ready():
 	_current_number_objects = 0
 
 func _fixed_process(delta):
-	if _active == false:
+	if _active == false or disable:
 		return
 	
 	if _spawning_countdown <= 0:
