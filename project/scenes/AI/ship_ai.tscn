@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=1]
 
-[ext_resource path="res://scenes/modules/ship_ai.gd" type="Script" id=1]
+[ext_resource path="res://scenes/AI/ship_ai.gd" type="Script" id=1]
 [ext_resource path="res://addons/com.brandonlamb.bt/root.gd" type="Script" id=2]
 [ext_resource path="res://addons/com.brandonlamb.bt/root_icon.png" type="Texture" id=3]
 [ext_resource path="res://addons/com.brandonlamb.bt/sequence.gd" type="Script" id=4]

@@ -9,7 +9,8 @@
 [ext_resource path="res://scenes/modules/lasergun.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/modules/missile_launcher.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/modules/hull.gd" type="Script" id=9]
-[ext_resource path="res://scenes/modules/ship_ai.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/AI/ship_ai.tscn" type="PackedScene" id=10]
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
