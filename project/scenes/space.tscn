@@ -121,22 +121,22 @@ default/chorus_send = 0.0
 
 transform/pos = Vector2( -300, -300 )
 respawning_time = 4
-max_objects = 2
 can_spawn_player = true
+disable = false
 
 [node name="Team" parent="PlayerSpawningPoint" instance=ExtResource( 7 )]
 
-_team = 1
+_team_number = 2
 
 [node name="SpawnPoint" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( -400, -300 )
 respawning_time = 3
-max_objects = 2
 can_spawn_player = false
+disable = false
 
 [node name="Team" parent="SpawnPoint" instance=ExtResource( 7 )]
 
-_team = 4
+_team_number = 3
 
 
