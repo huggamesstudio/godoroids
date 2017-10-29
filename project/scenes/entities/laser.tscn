@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/entities/laser.gd" type="Script" id=1]
 [ext_resource path="res://resources/images/laser.png" type="Texture" id=2]
 [ext_resource path="res://scenes/extended_engine/body_physics.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/modules/team.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -36,5 +37,9 @@ _update_shape_index = 0
 [node name="BodyPhysics" parent="." instance=ExtResource( 3 )]
 
 _rot_speed = 0
+
+[node name="Team" parent="." instance=ExtResource( 4 )]
+
+_team_number = 0
 
 

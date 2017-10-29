@@ -21,7 +21,7 @@ func _fixed_process(delta):
 		var player1 = Global.player1_ref.get_ref()
 		if player1.has_node("Hud"):
 			player1.get_node("Hud").get_node("DebugWindow").show()
-			player1.get_node("Hud").get_node("DebugWindow").set_text("Debug text")
+			player1.get_node("Hud").get_node("DebugWindow").set_text("SCORES!\nTeam 0 score: "+str(Global.TEAM_SCORES[2])+"\nTeam 1 score: "+str(Global.TEAM_SCORES[4]))
 	pass
 
 func _input(event):

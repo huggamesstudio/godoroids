@@ -54,7 +54,7 @@ func shooting_to(target_pos):
 func stop_shooting():
 	_shooting = false
 
-func hurt(damage):
+func hurt(damage, team_idx):
 	if shields > 0:
 		if damage <= shields:
 			shields -= damage
@@ -65,15 +65,16 @@ func hurt(damage):
 
 	life -= damage
 	if life <= 0:
-		die()
+		die(team_idx)
 
-func die():
+func die(team_idx):
 	if has_node("Player1Input"):
 		if has_node("Camera"):
 			var camera = Global.camera
 			remove_child(camera)
 			get_tree().get_root().add_child(camera)
 	emit_signal("ship_destroyed")
+	Global.TEAM_SCORES[team_idx] += 1
 	queue_free()
 
 func start_charging_propulsion():

@@ -3,16 +3,18 @@ extends Node
 
 var BASE_SPEED = 5
 var BASE_DAMAGE = 20
-var _life_ticks = 600
+var _life_span = 10
 
 var _physics
 var _engines
+var _team
 
 var _target_ref
 
 func _ready():
 	_physics = get_node("BodyPhysics")
 	_engines = get_node("Engines")
+	_team = get_node("Team")
 	
 	set_fixed_process(true)
 	var rotation = get_rot()
@@ -24,15 +26,15 @@ func _fixed_process(delta):
 	var colliders = get_overlapping_bodies()
 	for collider in colliders:
 		if collider.has_method("hurt"):
-			collider.hurt(BASE_DAMAGE)
+			collider.hurt(BASE_DAMAGE, _team.get_team())
 		var explosion = load("res://scenes/animations/laser_explosion_anim.tscn").instance()
 		explosion.set_scale(Vector2(2, 2))
 		explosion.set_pos(get_pos())
 		get_parent().add_child(explosion)
 		queue_free()
 	
-	_life_ticks -= 1
-	if _life_ticks < 1:
+	_life_span -= delta
+	if _life_span < 0:
 		queue_free()
 
 func set_target(target):

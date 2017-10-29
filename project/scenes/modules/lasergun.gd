@@ -31,6 +31,8 @@ func shoot(target_ref, shooting_angle):
 	laser.set_rot(shooting_angle+gun_inaccuracy_deviation)
 	laser.set_pos(_head.get_pos()+Vector2(cos(laser.get_rot()),-sin(laser.get_rot()))*50)
 	_head.get_parent().add_child(laser)
+	if _head.has_node("Team") and laser.has_node("Team"):
+		laser.get_node("Team").set_team(_head.get_node("Team").get_team())
 	laser.get_node("BodyPhysics").change_speed(_physics.get_speed())
 	ResourcesManager.SAMPLE_PLAYER.play("laser")
 	
