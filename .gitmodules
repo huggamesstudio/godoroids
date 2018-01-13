@@ -1,3 +1,3 @@
 [submodule "project/addons/godot-behavior-tree-plugin"]
 	path = project/addons/godot-behavior-tree-plugin
-	url = https://github.com/brandonlamb/godot-behavior-tree-plugin
+	url = https://github.com/godot-addons/godot-behavior-tree-plugin.git
